@@ -18,6 +18,8 @@ while str(joystick.device).find("Teensy") != -1:
 
 print(joystick.device)
 
+SpellWheel.generateSymbols()
+
 sw = SpellWheel(joystick, (100,100))
 
 player = Player(sw)
