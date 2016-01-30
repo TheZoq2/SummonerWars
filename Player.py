@@ -46,4 +46,8 @@ class Player:
     
     def on_self_cast(self, wheel):
         print(self.spellWheel.getSelectedIngredientIndexes())
+
+        self.caster.cast_spell()(self, self)
+
         self.updateIngredients()
+

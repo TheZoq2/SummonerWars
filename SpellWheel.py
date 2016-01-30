@@ -129,7 +129,7 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
 
     def getSelectedIngredients(self):
         result = []
-        for sel in selectedIngredients:
+        for sel in self.selectedIngredients:
             result.append(self.ingredients[sel])
 
         return result

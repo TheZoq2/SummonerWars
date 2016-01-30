@@ -28,7 +28,7 @@ def HandleStatusEffects(user, target, type):
     return magnitude
 
 def NoEffect(user, target):
-    pass
+    print("No spell")
 
 def FireWater(user, target):
     print("FireWater")
