@@ -9,10 +9,12 @@ class Player:
         self.spellWheel = SpellWheel()
 
         self.currentHealth = 100
-        self.statusEffects = {"onHitEnemy": [], "onGetHit": [], "onTargetSelf": [], "onTargetEnemy": []}
+        self.statusEffects = {"onHitTarget": [], "onGetHit": [], "onTargetSelf": [], "onTargetEnemy": []}
+        self.fails = 0  # While >0, spells cast by this player fail.
+        self.isProtected = False
 
     def addStatusEffect(self, effect, effectType, duration):
-        """Causes the provided effect function to be called based on its effectType, until duration ends"""
+        """Allows the provided effect function to be called based on its effectType, until duration ends"""
         self.statusEffects[effectType].append((effect, duration))
 
 
