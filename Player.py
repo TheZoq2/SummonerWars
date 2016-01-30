@@ -8,6 +8,14 @@ class Player:
 
         self.spellWheel = SpellWheel()
 
+        self.currentHealth = 100
+        self.statusEffects = {"onHitEnemy": [], "onGetHit": [], "onTargetSelf": [], "onTargetEnemy": []}
+
+    def addStatusEffect(self, effect, effectType, duration):
+        """Causes the provided effect function to be called based on its effectType, until duration ends"""
+        self.statusEffects[effectType].append((effect, duration))
+
+
     def choseNewIngredients(self):
         for i in range(0, Globals.INGREDIENTS_PER_TURN):
             self.ingredients[i] = random.random(0, Globals.NUM_INGREDIENTS)
