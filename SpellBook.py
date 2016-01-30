@@ -1,22 +1,22 @@
 import Globals
 import random
+from enum import Enum
 
 ########################
 ## Possible ingredients
 
-ingredients = [
-    "fire",
-    "water"
-]
+class Ingredients(Enum):
+    fire = 0
+    water = 1
 
 ##############################
 ## State spell implementation
 
 state_spells = {
     (): "NoEffect",
-    ("fire", "water"): "FireWater",
-    ("water", "fire"): "WaterFire",
-    ("fire", "fire", "fire", "fire"): "DragonFire"
+    (Ingredients.fire, Ingredients.water): "FireWater",
+    (Ingredients.water, Ingredients.fire): "WaterFire",
+    (Ingredients.fire, Ingredients.fire, Ingredients.fire, Ingredients.fire): "DragonFire",
 }
 
 class StateCaster:
@@ -27,8 +27,8 @@ class StateCaster:
     def new_spell(self):
         self.__ingredients = []
 
-    def add_ingredient(self, name):
-        self.__ingredients.append(name)
+    def add_ingredient(self, ingredient):
+        self.__ingredients.append(ingredient)
 
     def cast_spell(self):
         try:
@@ -46,6 +46,5 @@ class Caster(StateCaster):
         random.seed()
 
     def refill_ingredient(self):
-        selected_ingredient = random.randrange(0, Globals.NUM_INGREDIENTS * 4) % Globals.NUM_INGREDIENTS
-        return ingredients[selected_ingredient]
+        return random.randrange(0, Globals.NUM_INGREDIENTS)
 
