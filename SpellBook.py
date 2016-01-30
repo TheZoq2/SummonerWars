@@ -50,10 +50,12 @@ class StateCaster:
         self.__ingredients = []
 
     def add_ingredient(self, ingredient):
+        print("Ingredient added")
         self.__ingredients.append(ingredient)
 
     def cast_spell(self):
         try:
+            print(self.__ingredients)
             spell = self.__recipes[tuple(self.__ingredients)]
         except KeyError:
             spell = self.__recipes[()]

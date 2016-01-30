@@ -13,7 +13,7 @@ VID_FULLSCREEN=False
 INGREDIENTS_PER_TURN = 8
 
 #The amount of ingredients that exist in the game
-NUM_INGREDIENTS = 16
+NUM_INGREDIENTS = 8
 
 SELECT_BUTTONS = [10, 0, 5, 9, 4]
 BACK_BUTTONS = [1]
