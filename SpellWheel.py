@@ -69,7 +69,6 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
 
         self.updateSectorVisualisation()
 
-        print(button)
 
     def on_joyaxis_motion(self, joystick, axis, value):
         #Calculate stick angle
@@ -83,8 +82,6 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
 
         #Highlight the current sector
         self.currentSector = math.floor(angle / 360 * Globals.INGREDIENTS_PER_TURN)
-
-        print(self.currentSector)
 
         self.updateSectorVisualisation()
 
