@@ -35,6 +35,7 @@ state_spells = {
     (Ingredients.light, Ingredients.light, Ingredients.blood): SpellEffects.GreaterHeal,
     (Ingredients.air, Ingredients.water, Ingredients.earth, Ingredients.fire, Ingredients.light,
                                     Ingredients.dark, Ingredients.cosmic, Ingredients.blood): SpellEffects.OmniPower,
+    (Ingredients.light, Ingredients.dark): SpellEffects.Equilibrium,
 }
 
 class StateCaster:

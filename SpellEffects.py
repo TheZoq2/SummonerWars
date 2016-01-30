@@ -82,10 +82,19 @@ def Turmoil(user, target):
 def Nova(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier: return
-    if target == user: return  # I'd rather it workd here too, but I have no reference to the other player if they aren't the target AFAIK
 
     user.currentHealth -= multiplier * 5
-    target.currentHealth -= multiplier * 5
+    user.other.currentHealth -= multiplier * 5
+
+def Equilibrium(user, target):
+    if target.currentHealth > target.other.currentHealth:
+        multiplier = HandleStatusEffects(user, target, "dmg")
+        if not multiplier: return
+        target.currentHealth -= multiplier * 10
+    else:
+        multiplier = HandleStatusEffects(user, target, "heal")
+        if not multiplier: return
+        target.currentHealth += multiplier * 10
 
 def OmniPower(user, target):
     # Ignores faliure and multipliers. It's just that OP
