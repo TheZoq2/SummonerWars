@@ -57,7 +57,7 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         
     def on_joybutton_press(self, joystick, button):
         if button in Globals.SELECT_BUTTONS:
-            if not self.currentSector in self.selectedIngredients:
+            if not self.currentSector in self.selectedIngredients and self.currentSector != None:
                 self.selectedIngredients.append(self.currentSector)
 
         if button in Globals.BACK_BUTTONS:
@@ -75,13 +75,17 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         x = joystick.rx
         y = joystick.ry
 
-        angle = math.atan2(y, x) * 360/(2*math.pi) + 90
+        if abs(x) > 0.1 or abs(y) > 0.1:
+            angle = math.atan2(y, x) * 360/(2*math.pi) + 90
 
-        if(angle < 0): 
-            angle += 360
+            if(angle < 0): 
+                angle += 360
 
-        #Highlight the current sector
-        self.currentSector = math.floor(angle / 360 * Globals.INGREDIENTS_PER_TURN)
+            #Highlight the current sector
+            self.currentSector = math.floor(angle / 360 * Globals.INGREDIENTS_PER_TURN)
+
+        else:
+            self.currentSector = None
 
         self.updateSectorVisualisation()
 
@@ -96,10 +100,17 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
             else:
                 bg.color = 255,255,255
         
-        self.backgrounds[self.currentSector].color = 0,0,255 
+        if self.currentSector != None:
+            selectedColor = self.backgrounds[self.currentSector].color
+            self.backgrounds[self.currentSector].color = (
+                    selectedColor[0] * 0.5,
+                    selectedColor[1] * 0.5,
+                    selectedColor[2] * 0.5,
+                    )
 
     def setIngredients(self, ingredients):
         self.ingredients = ingredients
+        self.selectedIngredients = []
 
         for sprite in self.ingSprites:
             self.remove(sprite)
