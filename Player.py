@@ -14,3 +14,6 @@ class Player:
 
         #Tell the spell wheel about this change
         self.spellWheel.setIngredients(self.ingredients);
+
+    def updateIngredients(self):
+
