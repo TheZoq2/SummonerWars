@@ -66,7 +66,7 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
                 self.selectedIngredients.pop()
 
         if button in Globals.SELF_CAST_BUTTONS:
-            selfl.trySelfCast()
+            self.trySelfCast()
 
         if button in Globals.NORMAL_CAST_BUTTON:
             self.tryNormalCast()
