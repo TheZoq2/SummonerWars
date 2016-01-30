@@ -1,4 +1,6 @@
 import Globals
+import SpellEffects
+
 import random
 from enum import Enum
 
@@ -9,14 +11,15 @@ class Ingredients(Enum):
     fire = 0
     water = 1
 
+
 ##############################
 ## State spell implementation
 
 state_spells = {
-    (): "NoEffect",
-    (Ingredients.fire, Ingredients.water): "FireWater",
-    (Ingredients.water, Ingredients.fire): "WaterFire",
-    (Ingredients.fire, Ingredients.fire, Ingredients.fire, Ingredients.fire): "DragonFire",
+    (): SpellEffects.NoEffect,
+    (Ingredients.fire, Ingredients.water): SpellEffects.FireWater(),
+    (Ingredients.water, Ingredients.fire): SpellEffects.WaterFire(),
+    (Ingredients.fire, Ingredients.fire, Ingredients.fire, Ingredients.fire): SpellEffects.DragonFire(),
 }
 
 class StateCaster:
@@ -35,6 +38,7 @@ class StateCaster:
             return self.__recipes[tuple(self.__ingredients)]
         except KeyError:
             return self.__recipes[()]
+
 
 ################
 ## Spell caster
