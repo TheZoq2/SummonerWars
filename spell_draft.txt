@@ -7,10 +7,12 @@
 6	Cosmic
 7	Blood
 
-01	Choking mist
-32	Eruption (Deals a ton of damage 10-ish seconds after cast)
+
+
+07	Choking mist
+32	Eruption (Deals a ton of damage 10-ish seconds after cast OR after next 1-2 spell(s))
 30	Smoke barrage
-57	Corrupted blood (damage over time)
+57	Corrupted blood (debuff: target can't be healed)
 56	Void
 73	Blood arrow
 45	Equilibrium (heals target is they have less health, damages if htyeh ave more health)
@@ -22,15 +24,38 @@
 47	Heal (Exactly What It Says On The Tin)
 477	Greater Heal (heal for more)
 27	Earth shield (target can't be hit for a few seconds)
-60	Ætherwind (Two of the target's random ingredients are replaced)
+01	Rain storm (debuff: target takes damage if hit by a spell containing Fire)
+02	Dust storm (buff: target takes less damage from next spell that hits them)
+03	Lightning storm (debuff: target takes damage if hit by a spell containing Water)
+04	Shroud of light (buff: target is healed if hit by a spell containing Light) 
+05	Shroud of darkness (buff: target is healed if hit by a spell containing Dark)
+06	Anguish (if target would be hit by a non-damaging spell, target takes a lot of damage)
+07	Turmoil (Target's next spell has no effect)
+10	Arcane mist
+62	Arcane missiles (damage over time)
+41	Open mind (buff: target is healed for 20% more)
+
+
+
+50	Misdirect (target's spells hit the wrong target for a while)
+34	Brightflame (deals damage. Deals extra damage if target's last spell used at least 1 Dark)
+35	Darkflame (deals damage. Deals extra damage if target's last spell used at least 1 Light)
+
 
 
 6162	Slow Time
-112	Tsunami (Deals damage to target, after a delay. Caster can't be targeted in the meantime)
+112	Tsunami (Deals damage to target, after a delay. Caster can't be targeted in the meantime. If turn-based, might make delay be until start of next own turn.)
+330	Oops (Explodes in caster's face)
+146	Wild magic (has the effect of a random spell. All spells are possible, including Oops). Shared with all permutations of these ingredients.
 
+60	Æthergust (two of target's ingredients is replaced)
+600	Ætherwind (three of the target's ingredients are replaced at random)
+6000	Ætherstorm (four of target's ingredients are replaced at random)
+60600	Æether tornado (ALL of target's ingredients are replaced at random)
 
 
 (For any ingredient X)
+X		X shard
 XX		X rush
 XXX		X strike
 XXXX		X bolt
@@ -38,9 +63,13 @@ XXXXX		X blast
 XXXXXX		X wave
 XXXXXXX		X surge
 XXXXXXXX	X mastery (that's 8)
+The above are pure damage spells. Probably
 
-6X7		Metamorphosis: X (next two spells start with an X added)
+6X7		Metamorphosis: X (next two spells start with an X already added)
 
-(ex. 000: Air bolt. 55555: Dark surge. 607: Metamorphosis: Air)
+20X		X essence: After their next spell, target only gains X ingredient
+X20		-''-
 
-01234567	Omnipower (Maybe just tons of damage?)
+(ex. 000: Air bolt. 55555: Dark surge. 637: Metamorphosis: Earth)
+
+01234567	Omnipower (Maybe just tons of damage? Something really cool anyway)
