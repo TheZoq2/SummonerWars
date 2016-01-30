@@ -53,6 +53,7 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         self.joystick.push_handlers(self)
 
         SpellWheel.register_event_type("on_self_cast")
+        SpellWheel.register_event_type("on_normal_cast")
 
         
     def on_joybutton_press(self, joystick, button):
@@ -67,7 +68,12 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         if button in Globals.SELF_CAST_BUTTONS:
             self.dispatch_event("on_self_cast", self)
 
+        if button in Globals.NORMAL_CAST_BUTTON:
+            self.dispatch_event("on_normal_cast")
+
         self.updateSectorVisualisation()
+        
+        print(button)
 
 
     def on_joyaxis_motion(self, joystick, axis, value):
