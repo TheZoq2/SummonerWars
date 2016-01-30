@@ -45,12 +45,12 @@ def Oops(user, target):
 def Heal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier: return
-    target.currentHealth += multiplier * 10
+    target.currentHealth += multiplier * 7
 
 def GreaterHeal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier: return
-    target.currentHealth += multiplier * 20
+    target.currentHealth += multiplier * 11
 
 def Strike(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
@@ -83,3 +83,22 @@ def BloodArrow(user, target):
 
     user.currentHealth -= 5
     target.currentHealth -= multiplier * 10
+
+def Turmoil(user, target):
+    multiplier = HandleStatusEffects(user, target, "debuff")
+    if not multiplier: return
+
+    target.fails += 1
+
+def Nova(user, target):
+    multiplier = HandleStatusEffects(user, target, "dmg")
+    if not multiplier: return
+    if target == user: return  # I'd rather it workd here too, but I have no reference to the other player if they aren't the target AFAIK
+
+    user.currentHealth -= multiplier * 5
+    target.currentHealth -= multiplier * 5
+
+def OmniPower(user, target):
+    # Ignores faliure and multipliers. It's just that OP
+
+    target.currentHealth -= 15

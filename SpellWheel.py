@@ -17,7 +17,9 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         for img in Globals.RUNE_IMAGES:
             SpellWheel.symbolMap.append(img)
         
-        SpellWheel.symbolMap = random.shuffle(symbolMap)
+        random.shuffle(SpellWheel.symbolMap)
+
+    WHEEL_RADIUS = 60
 
     def __init__(self, joystick, position):
         super( SpellWheel, self).__init__()
@@ -45,7 +47,6 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         self.currentSector = 0
 
         self.joystick = joystick
-        print(joystick.device)
 
         self.joystick.open()
 
@@ -83,6 +84,8 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         #Highlight the current sector
         self.currentSector = math.floor(angle / 360 * Globals.INGREDIENTS_PER_TURN)
 
+        print(self.currentSector)
+
         self.updateSectorVisualisation()
 
     def updateSectorVisualisation(self):
@@ -101,9 +104,38 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
     def setIngredients(self, ingredients):
         self.ingredients = ingredients
 
+        for sprite in self.ingSprites:
+            self.remove(sprite)
+
+        self.ingSprites = []
+        #Create the sprites
+        for i in range(len(self.ingredients)):
+            angle = (i + 0.5) * 360 / Globals.INGREDIENTS_PER_TURN
+
+            angle = -angle
+            angle += 180
+
+            ingID = self.ingredients[i]
+            
+            angleRad = angle / 180 * math.pi
+
+            spriteX = self.position[0] + math.cos(angleRad - math.pi / 2) * SpellWheel.WHEEL_RADIUS
+            spriteY = self.position[1] + math.sin(angleRad - math.pi / 2) * SpellWheel.WHEEL_RADIUS
+
+            sprite = cocos.sprite.Sprite(SpellWheel.symbolMap[ingID])
+
+            sprite.position = (spriteX, spriteY)
+            self.add(sprite)
+            
+            self.ingSprites.append(sprite)
+
+
     def getSelectedIngredients(self):
         result = []
         for sel in selectedIngredients:
             result.append(self.ingredients[sel])
 
         return result
+    
+    def getSelectedIngredientIndexes(self):
+        return self.selectedIngredients

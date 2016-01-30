@@ -9,7 +9,19 @@ from Player import *
 
 cocos.director.director.init(width=Globals.VID_WIDTH, height=Globals.VID_HEIGHT, caption=Globals.GAME_NAME, fullscreen=Globals.VID_FULLSCREEN)
 
-sw = SpellWheel(pyglet.input.get_joysticks()[0], (200, 200))
+joystickIndex = 0
+joystick = pyglet.input.get_joysticks()[joystickIndex]
+
+while str(joystick.device).find("Teensy") != -1:
+    print(joystick.device)
+    joystickIndex += 1
+    joystick = pyglet.input.get_joysticks()[joystickIndex]
+
+print(joystick.device)
+
+SpellWheel.generateSymbols()
+
+sw = SpellWheel(joystick, (100,100))
 
 player = Player(sw)
 

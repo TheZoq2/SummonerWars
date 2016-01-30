@@ -8,8 +8,15 @@ from enum import Enum
 ## Possible ingredients
 
 class Ingredients(Enum):
-    fire = 0
+    air = 0
     water = 1
+    earth = 2
+    fire = 3
+    light = 4
+    dark = 5
+    cosmic = 6
+    blood = 7
+
 
 
 ##############################
@@ -20,6 +27,17 @@ state_spells = {
     (Ingredients.fire, Ingredients.water): SpellEffects.FireWater,
     (Ingredients.water, Ingredients.fire): SpellEffects.WaterFire,
     (Ingredients.fire, Ingredients.fire, Ingredients.fire, Ingredients.fire): SpellEffects.DragonFire,
+    (Ingredients.blood, Ingredients.fire): SpellEffects.BloodArrow,
+    (Ingredients.water, Ingredients.water, Ingredients.water): SpellEffects.Strike,
+    (Ingredients.light, Ingredients.air): SpellEffects.OpenMind,
+    (Ingredients.fire, Ingredients.fire, Ingredients.air): SpellEffects.Oops,
+    (Ingredients.air, Ingredients.cosmic): SpellEffects.Anguish,
+    (Ingredients.air, Ingredients.blood): SpellEffects.Turmoil,
+    (Ingredients.cosmic, Ingredients.fire): SpellEffects.Nova,
+    (Ingredients.light, Ingredients.blood): SpellEffects.Heal,
+    (Ingredients.light, Ingredients.light, Ingredients.blood): SpellEffects.GreaterHeal,
+    (Ingredients.air, Ingredients.water, Ingredients.earth, Ingredients.fire, Ingredients.light,
+                                    Ingredients.dark, Ingredients.cosmic, Ingredients.blood): SpellEffects.OmniPower,
 }
 
 class StateCaster:
