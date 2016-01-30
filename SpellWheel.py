@@ -3,19 +3,32 @@ from cocos.actions import *
 import pyglet
 
 import math
+import random
 
 import Globals
 
-class SpellWheel(cocos.layer.Layer):
-    BACKGROUND_IMAGE = "Assets/spellwheel_slice.png"
+symbolMap = []
+def generateSymbols():
+    for img in Globals.RUNE_IMAGES:
+        ingredientMap.append(img)
+    
+    symbolMap = random.shuffle(symbolMap)
 
+class SpellWheel(cocos.layer.Layer): 
+    BACKGROUND_IMAGE = "Assets/spellwheel_slice.png" 
     is_event_handler = True
 
-    def __init__(self, joystick):
+
+    def __init__(self, joystick, position):
         super( SpellWheel, self).__init__()
-        self.ingredients = []
-        
+        self.ingredients = [] 
+        self.selectedIngredients = []
+
+        self.position = position
+
         self.backgrounds = []
+        self.ingSprites = []
+
         #Visualisation stuff
         for i in range(0, Globals.INGREDIENTS_PER_TURN):
             self.backgrounds.append(cocos.sprite.Sprite(self.BACKGROUND_IMAGE))
@@ -23,15 +36,14 @@ class SpellWheel(cocos.layer.Layer):
             angle = i * 360 / Globals.INGREDIENTS_PER_TURN
 
             self.backgrounds[i].rotation = angle
-            self.backgrounds[i].position = 320,240
+            self.backgrounds[i].position = self.position
             self.backgrounds[i].image_anchor = 0,0
-            self.backgrounds[i].color = 255,255,255
+            self.backgrounds[i].color = 255,255,0
             self.add(self.backgrounds[i])
 
         self.currentAngle = 0
         self.currentSector = 0
 
-        
         self.joystick = joystick
         print(joystick.device)
 
@@ -41,8 +53,18 @@ class SpellWheel(cocos.layer.Layer):
 
         
     def on_joybutton_press(self, joystick, button):
+        if button in Globals.SELECT_BUTTONS:
+            if not self.currentSector in self.selectedIngredients:
+                self.selectedIngredients.append(self.currentSector)
+
+        if button in Globals.BACK_BUTTONS:
+            if self.selectedIngredients:
+                self.selectedIngredients.pop()
+
+        self.updateSectorVisualisation()
+
         print(button)
-    
+
     def on_joyaxis_motion(self, joystick, axis, value):
         #Calculate stick angle
         x = joystick.rx
@@ -54,11 +76,29 @@ class SpellWheel(cocos.layer.Layer):
             angle += 360
 
         #Highlight the current sector
-        sector = math.floor(angle / 360 * Globals.INGREDIENTS_PER_TURN)
+        self.currentSector = math.floor(angle / 360 * Globals.INGREDIENTS_PER_TURN)
 
-        print(sector)
+        self.updateSectorVisualisation()
 
-        #self.backgrounds[sector].color = 255,0,0
-
-
+    def updateSectorVisualisation(self):
+        #Reset color on all the backgrounds
+        for i in range(len(self.backgrounds)):
+            bg = self.backgrounds[i]
+            bg.do(Globals.UpdateAction())
+            
+            if i in self.selectedIngredients:
+                bg.color = 255,0,0
+            else:
+                bg.color = 255,255,255
         
+        self.backgrounds[self.currentSector].color = 0,0,255 
+
+    def setIngredients(self, ingredients):
+        self.ingredients = ingredients
+
+    def getSelectedIngredients(self):
+        result = []
+        for sel in selectedIngredients:
+            result.append(self.ingredients[sel])
+
+        return result
