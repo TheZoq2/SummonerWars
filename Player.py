@@ -34,7 +34,7 @@ class Player:
 
     def choseNewIngredients(self):
         for i in range(0, Globals.INGREDIENTS_PER_TURN):
-            self.currentIngredients.append(random.randint(0, Globals.NUM_INGREDIENTS))
+            self.currentIngredients.append(self.caster.refill_ingredient())
 
         #Tell the spell wheel about this change
         self.spellWheel.setIngredients(self.currentIngredients);
