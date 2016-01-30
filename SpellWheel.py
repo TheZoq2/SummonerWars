@@ -7,17 +7,17 @@ import random
 
 import Globals
 
-symbolMap = []
-def generateSymbols():
-    for img in Globals.RUNE_IMAGES:
-        ingredientMap.append(img)
-    
-    symbolMap = random.shuffle(symbolMap)
 
-class SpellWheel(cocos.layer.Layer): 
+class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher): 
     BACKGROUND_IMAGE = "Assets/spellwheel_slice.png" 
     is_event_handler = True
 
+    symbolMap = []
+    def generateSymbols():
+        for img in Globals.RUNE_IMAGES:
+            SpellWheel.symbolMap.append(img)
+        
+        SpellWheel.symbolMap = random.shuffle(symbolMap)
 
     def __init__(self, joystick, position):
         super( SpellWheel, self).__init__()
@@ -38,7 +38,7 @@ class SpellWheel(cocos.layer.Layer):
             self.backgrounds[i].rotation = angle
             self.backgrounds[i].position = self.position
             self.backgrounds[i].image_anchor = 0,0
-            self.backgrounds[i].color = 255,255,0
+            self.backgrounds[i].color = 255,255,255
             self.add(self.backgrounds[i])
 
         self.currentAngle = 0
@@ -51,6 +51,8 @@ class SpellWheel(cocos.layer.Layer):
 
         self.joystick.push_handlers(self)
 
+        SpellWheel.register_event_type("on_self_cast")
+
         
     def on_joybutton_press(self, joystick, button):
         if button in Globals.SELECT_BUTTONS:
@@ -60,6 +62,9 @@ class SpellWheel(cocos.layer.Layer):
         if button in Globals.BACK_BUTTONS:
             if self.selectedIngredients:
                 self.selectedIngredients.pop()
+
+        if button in Globals.SELF_CAST_BUTTONS:
+            self.dispatch_event("on_self_cast", self)
 
         self.updateSectorVisualisation()
 

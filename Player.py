@@ -3,10 +3,13 @@ import random
 from SpellWheel import *
 import Globals
 class Player:
-    def __init__(self):
+    def __init__(self, spellWheel):
         self.currentIngredients = []
 
-        self.spellWheel = SpellWheel()
+        self.spellWheel = spellWheel
+        #Subscribe to events from the spell wheel
+        self.spellWheel.push_handlers(self)
+
 
         self.currentHealth = 100
         self.statusEffects = {"onHitTarget": [], "onGetHit": [], "onTargetSelf": [], "onTargetEnemy": []}
@@ -26,4 +29,7 @@ class Player:
         self.spellWheel.setIngredients(self.ingredients);
 
     def updateIngredients(self):
-
+        pass
+    
+    def on_self_cast(self, wheel):
+        print("Got cast event")

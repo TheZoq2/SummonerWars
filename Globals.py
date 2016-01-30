@@ -17,6 +17,7 @@ NUM_INGREDIENTS = 16
 
 SELECT_BUTTONS = [10, 0, 5]
 BACK_BUTTONS = [1]
+SELF_CAST_BUTTONS = [3]
 
 RUNE_IMAGES = [
     "Assets/ingredients/runes1.png",
