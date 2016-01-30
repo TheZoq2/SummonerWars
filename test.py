@@ -21,6 +21,7 @@ def selectJoystick(joyList, startIndex):
 cocos.director.director.init(width=Globals.VID_WIDTH, height=Globals.VID_HEIGHT, caption=Globals.GAME_NAME, fullscreen=Globals.VID_FULLSCREEN)
 
 joyList = pyglet.input.get_joysticks()
+print(joyList)
 
 joystick,joyIndex = selectJoystick(joyList, 0)
 

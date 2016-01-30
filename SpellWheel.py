@@ -102,7 +102,7 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
             else:
                 self.currentSector = None
 
-            self.updateSectorVisualisation()
+        self.updateSectorVisualisation()
 
 
     def updateSectorVisualisation(self):
