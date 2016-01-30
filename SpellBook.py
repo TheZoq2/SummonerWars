@@ -44,6 +44,7 @@ class StateCaster:
 
     def __init__(self, recipes):
         self.__recipes = recipes
+        self.__ingredients = []
 
     def new_spell(self):
         self.__ingredients = []
@@ -53,9 +54,11 @@ class StateCaster:
 
     def cast_spell(self):
         try:
-            return self.__recipes[tuple(self.__ingredients)]
+            spell = self.__recipes[tuple(self.__ingredients)]
         except KeyError:
-            return self.__recipes[()]
+            spell = self.__recipes[()]
+        self.__ingredients = []
+        return spell
 
 
 ################
