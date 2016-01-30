@@ -1,7 +1,5 @@
 import cocos
 from cocos.actions import *
-from cocos.particle import *
-from cocos.particle_systems import *
 import Globals
 
 class BackgroundLayer(cocos.layer.Layer):
