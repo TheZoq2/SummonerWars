@@ -21,6 +21,8 @@ class Player:
         self.fails = 0  # While >0, spells cast by this player fail.
         self.isProtected = False
 
+        self.position = 0,0
+
         self.choseNewIngredients()
 
     #Look away!
