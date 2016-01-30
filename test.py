@@ -32,8 +32,8 @@ print("Player2: " + str(joystick2.device))
 
 SpellWheel.generateSymbols()
 
-sw1 = SpellWheel(joystick, (100,300))
-sw2 = SpellWheel(joystick2, (500,300))
+sw1 = SpellWheel(joystick, Globals.POS_WHEEL_1)
+sw2 = SpellWheel(joystick2, Globals.POS_WHEEL_2)
 
 player = Player(sw1)
 player2 = Player(sw2)
