@@ -2,12 +2,12 @@ import Globals
 import SpellEffects
 
 import random
-from enum import Enum
+from enum import *
 
 ########################
 ## Possible ingredients
 
-class Ingredients(Enum):
+class Ingredients(IntEnum):
     air = 0
     water = 1
     earth = 2
@@ -53,8 +53,9 @@ class StateCaster:
     def cast_spell(self):
         try:
             print(self.__ingredients)
+
             spell = self.__recipes[tuple(self.__ingredients)]
-        except KeyError:
+        except KeyError as e:
             spell = self.__recipes[()]
         self.__ingredients = []
         return spell
@@ -70,5 +71,6 @@ class Caster(StateCaster):
         random.seed()
 
     def refill_ingredient(self):
-        return random.randrange(0, Globals.NUM_INGREDIENTS)
+        #return random.randrange(0, Globals.NUM_INGREDIENTS)
+        return random.choice(list(Ingredients))
 
