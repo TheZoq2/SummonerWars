@@ -30,15 +30,6 @@ def HandleStatusEffects(user, target, type):
 def NoEffect(user, target):
     print("No spell")
 
-def FireWater(user, target):
-    print("FireWater")
-
-def WaterFire(user, target):
-    print("WaterFire")
-
-def DragonFire(user, target):
-    print("DragonFire")
-
 def Oops(user, target):
     user.currentHealth -= 10
     
@@ -64,7 +55,6 @@ def OpenMind(user, target):
     if multiplier:
         target.statusEffects["onGetHit"].append(lambda tgt, type : 1,2 if type == "heal" else 1)
 
-
 def Anguish(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
     if not multiplier: return
@@ -75,7 +65,6 @@ def Anguish(user, target):
 
     if multiplier:
         target.statusEffects["onGetHit"].append(Anguished)
-
 
 def BloodArrow(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")

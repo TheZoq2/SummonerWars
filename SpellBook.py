@@ -24,9 +24,6 @@ class Ingredients(Enum):
 
 state_spells = {
     (): SpellEffects.NoEffect,
-    (Ingredients.fire, Ingredients.water): SpellEffects.FireWater,
-    (Ingredients.water, Ingredients.fire): SpellEffects.WaterFire,
-    (Ingredients.fire, Ingredients.fire, Ingredients.fire, Ingredients.fire): SpellEffects.DragonFire,
     (Ingredients.blood, Ingredients.fire): SpellEffects.BloodArrow,
     (Ingredients.water, Ingredients.water, Ingredients.water): SpellEffects.Strike,
     (Ingredients.light, Ingredients.air): SpellEffects.OpenMind,
