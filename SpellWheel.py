@@ -69,7 +69,7 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
             self.dispatch_event("on_self_cast", self)
 
         if button in Globals.NORMAL_CAST_BUTTON:
-            self.dispatch_event("on_normal_cast")
+            self.dispatch_event("on_normal_cast", self)
 
         self.updateSectorVisualisation()
         
