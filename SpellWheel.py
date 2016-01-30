@@ -66,10 +66,10 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
                 self.selectedIngredients.pop()
 
         if button in Globals.SELF_CAST_BUTTONS:
-            self.dispatch_event("on_self_cast", self)
+            selfl.trySelfCast()
 
         if button in Globals.NORMAL_CAST_BUTTON:
-            self.dispatch_event("on_normal_cast", self)
+            self.tryNormalCast()
 
         self.updateSectorVisualisation()
         
@@ -79,11 +79,14 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
     def on_joyaxis_motion(self, joystick, axis, value):
         if axis == "rz":
             if value > Globals.TRIGGER_THRESHOLD:
-                self.dispatch_event("on_normal_cast", self)
+                self.tryNormalCast()
 
         if axis == "z":
             if value > Globals.TRIGGER_THRESHOLD:
-                self.dispatch_event("on_self_cast", self)
+                self.trySelfCast()
+
+            if value < -Globals.TRIGGER_THRESHOLD:
+                self.tryNormalCast()
 
         #Calculate stick angle
         if axis == "rx" or axis == "ry":
@@ -103,6 +106,15 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
                 self.currentSector = None
 
         self.updateSectorVisualisation()
+
+    
+    def trySelfCast(self):
+        if self.selectedIngredients:
+            self.dispatch_event("on_self_cast", self)
+
+    def tryNormalCast(self):
+        if self.selectedIngredients:
+            self.dispatch_event("on_normal_cast", self)
 
 
     def updateSectorVisualisation(self):
