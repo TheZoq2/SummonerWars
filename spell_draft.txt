@@ -1,0 +1,46 @@
+0	Air
+1	Water
+2	Earth
+3	Fire
+4	Light
+5	Dark
+6	Cosmic
+7	Blood
+
+01	Choking mist
+32	Eruption (Deals a ton of damage 10-ish seconds after cast)
+30	Smoke barrage
+57	Corrupted blood (damage over time)
+56	Void
+73	Blood arrow
+45	Equilibrium (heals target is they have less health, damages if htyeh ave more health)
+54	-''-
+71	Weaken (target's next spell gets weaker)
+40	Fade (target can't be hit until they cast a spell, but their next spell has no effect at all)
+63	Nova (Damages both players)
+06	Imbue
+47	Heal (Exactly What It Says On The Tin)
+477	Greater Heal (heal for more)
+27	Earth shield (target can't be hit for a few seconds)
+60	Ætherwind (Two of the target's random ingredients are replaced)
+
+
+6162	Slow Time
+112	Tsunami (Deals damage to target, after a delay. Caster can't be targeted in the meantime)
+
+
+
+(For any ingredient X)
+XX		X rush
+XXX		X strike
+XXXX		X bolt
+XXXXX		X blast
+XXXXXX		X wave
+XXXXXXX		X surge
+XXXXXXXX	X mastery (that's 8)
+
+6X7		Metamorphosis: X (next two spells start with an X added)
+
+(ex. 000: Air bolt. 55555: Dark surge. 607: Metamorphosis: Air)
+
+01234567	Omnipower (Maybe just tons of damage?)
