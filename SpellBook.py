@@ -17,9 +17,9 @@ class Ingredients(Enum):
 
 state_spells = {
     (): SpellEffects.NoEffect,
-    (Ingredients.fire, Ingredients.water): SpellEffects.FireWater(),
-    (Ingredients.water, Ingredients.fire): SpellEffects.WaterFire(),
-    (Ingredients.fire, Ingredients.fire, Ingredients.fire, Ingredients.fire): SpellEffects.DragonFire(),
+    (Ingredients.fire, Ingredients.water): SpellEffects.FireWater,
+    (Ingredients.water, Ingredients.fire): SpellEffects.WaterFire,
+    (Ingredients.fire, Ingredients.fire, Ingredients.fire, Ingredients.fire): SpellEffects.DragonFire,
 }
 
 class StateCaster:
