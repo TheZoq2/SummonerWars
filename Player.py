@@ -27,6 +27,15 @@ class Player:
     def setOther(other, self):
         other.other = self
 
+
+    def increaseHealth(self, amount):
+        self.currentHealth += amount
+        if self.currentHealth > 100:
+            self.currentHealth = 100
+
+    def reduceHealth(self, amount):
+        self.currentHealth -= amount
+
     def addStatusEffect(self, effect, effectType, duration):
         """Allows the provided effect function to be called based on its effectType, until duration ends"""
         self.statusEffects[effectType].append((effect, duration))
