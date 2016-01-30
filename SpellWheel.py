@@ -77,23 +77,33 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
 
 
     def on_joyaxis_motion(self, joystick, axis, value):
+        if axis == "rz":
+            if value > Globals.TRIGGER_THRESHOLD:
+                self.dispatch_event("on_normal_cast", self)
+
+        if axis == "z":
+            if value > Globals.TRIGGER_THRESHOLD:
+                self.dispatch_event("on_self_cast", self)
+
         #Calculate stick angle
-        x = joystick.rx
-        y = joystick.ry
+        if axis == "rx" or axis == "ry":
+            x = joystick.rx
+            y = joystick.ry
 
-        if abs(x) > 0.1 or abs(y) > 0.1:
-            angle = math.atan2(y, x) * 360/(2*math.pi) + 90
+            if abs(x) > 0.1 or abs(y) > 0.1:
+                angle = math.atan2(y, x) * 360/(2*math.pi) + 90
 
-            if(angle < 0): 
-                angle += 360
+                if(angle < 0): 
+                    angle += 360
 
-            #Highlight the current sector
-            self.currentSector = math.floor(angle / 360 * Globals.INGREDIENTS_PER_TURN)
+                #Highlight the current sector
+                self.currentSector = math.floor(angle / 360 * Globals.INGREDIENTS_PER_TURN)
 
-        else:
-            self.currentSector = None
+            else:
+                self.currentSector = None
 
-        self.updateSectorVisualisation()
+            self.updateSectorVisualisation()
+
 
     def updateSectorVisualisation(self):
         #Reset color on all the backgrounds

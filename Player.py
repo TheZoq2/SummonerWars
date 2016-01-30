@@ -8,6 +8,8 @@ class Player:
     def __init__(self, spellWheel):
         self.currentIngredients = []
 
+        self.other = None
+
         self.spellWheel = spellWheel
         #Subscribe to events from the spell wheel
         self.spellWheel.push_handlers(self)
@@ -20,6 +22,10 @@ class Player:
         self.isProtected = False
 
         self.choseNewIngredients()
+
+    #Look away!
+    def setOther(other, self):
+        other.other = self
 
     def addStatusEffect(self, effect, effectType, duration):
         """Allows the provided effect function to be called based on its effectType, until duration ends"""
@@ -50,7 +56,7 @@ class Player:
         self.updateIngredients()
 
     def on_normal_cast(self, wheel):
-        #self.caster.cast_spell()(self, self)
+        self.caster.cast_spell()(self, self.other)
 
         self.updateIngredients()
 

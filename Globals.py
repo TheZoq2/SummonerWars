@@ -20,6 +20,8 @@ BACK_BUTTONS = [1]
 SELF_CAST_BUTTONS = [3]
 NORMAL_CAST_BUTTON = [2]
 
+TRIGGER_THRESHOLD = 0.5
+
 RUNE_IMAGES = [
     "Assets/ingredients/rune1.png",
     "Assets/ingredients/rune2.png",
