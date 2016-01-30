@@ -13,7 +13,7 @@ def selectJoystick(joyList, startIndex):
     
     while str(joystick.device).find("Teensy") != -1:
         joystickIndex += 1
-        joystick = pyglet.input.get_joysticks()[joystickIndex]
+        joystick = joyList[joystickIndex]
 
     return (joystick, joystickIndex)
 
