@@ -7,7 +7,7 @@ import Globals
 import pyglet
 
 class Player(pyglet.event.EventDispatcher):
-    def __init__(self, spellWheel, position):
+    def __init__(self, spellWheel):
         self.currentIngredients = []
 
         self.other = None
@@ -22,8 +22,6 @@ class Player(pyglet.event.EventDispatcher):
         self.statusEffects = {"onHitTarget": [], "onGetHit": [], "onTargetSelf": [], "onTargetEnemy": []}
         self.fails = 0  # While >0, spells cast by this player fail.
         self.isProtected = False
-
-        self.position = position
 
         self.choseNewIngredients()
 

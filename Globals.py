@@ -15,12 +15,12 @@ NUM_INGREDIENTS      = 8  # amount of ingredients that exist in the game
 MAX_HEALTH = 100
 
 # Layout
-POS_PLAYER_1 = (275,400)
-POS_PLAYER_2 = (1015,400)
 POS_WHEEL_1 = (139,270)
 POS_WHEEL_2 = (507,270)
 POS_HPBAR_1 = (50,650)
 POS_HPBAR_2 = (1100,650)
+LABEL_OFFSET_X=0
+LABEL_OFFSET_Y=100
 
 # Controller mapping & setting
 SELECT_BUTTONS = [10, 0, 5, 9, 4]
@@ -53,6 +53,9 @@ CLOUD_LAYER_2 = "Assets/cloudlayer1.png"
 
 HEALTHBAR_IMAGE = "Assets/hpbar.png"
 HEALTHBAR_BACKGROUND = "Assets/hpbackground.png"
+
+SPELL_NOSPELL = "Assets/particle_fire.png"
+SPELL_STRIKE = "Assets/particle_fire.png"
 
 class UpdateAction( InstantAction ):
     def init(self):
