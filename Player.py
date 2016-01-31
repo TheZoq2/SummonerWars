@@ -28,6 +28,7 @@ class Player(pyglet.event.EventDispatcher):
         self.choseNewIngredients()
 
         Player.register_event_type("on_hp_change")
+        Player.register_event_type("on_spell_cast")
 
     #Look away!
     def setOther(other, self):
@@ -73,16 +74,19 @@ class Player(pyglet.event.EventDispatcher):
         self.spellWheel.setIngredients(self.currentIngredients)
 
     
-    def on_self_cast(self, wheel):
-        self.caster.cast_spell()(self, self)
+    def castSpell(self, event, target):
+        self.dispatch_event(event, self.spellWheel.getSelectedIngredients())
 
-        self.updateIngredients()
-
-    def on_normal_cast(self, wheel):
         for ingredient in self.spellWheel.getSelectedIngredients():
             self.caster.add_ingredient(ingredient)
 
-        self.caster.cast_spell()(self, self.other)
+        self.caster.cast_spell()(self, target)
 
         self.updateIngredients()
+
+    def on_self_cast(self, wheel):
+        self.castSpell("on_spell_cast", self)
+
+    def on_normal_cast(self, wheel):
+        self.castSpell("on_spell_cast", self.other)
 
