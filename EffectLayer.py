@@ -33,6 +33,7 @@ class EffectLayer(cocos.layer.Layer):
         effectDispatchCenter.push_handlers(self)
         font.add_file(Globals.FONT_FILE)
         self.assets = {
+            "Default": Sprite(Globals.SPELL_DEFAULT),
             "NoSpell": Sprite(Globals.SPELL_DEFAULT),
             "Heal": Sprite(Globals.SPELL_DEFAULT),
             "GreaterHeal": Sprite(Globals.SPELL_DEFAULT),
@@ -49,6 +50,7 @@ class EffectLayer(cocos.layer.Layer):
             "CorruptedBlood": Sprite(Globals.SPELL_DEFAULT),
         }
         self.effects = {
+            "Default": self._Default,
             "NoSpell": self._Default,
             "Heal": self._Default,
             "GreaterHeal": self._Default,
@@ -65,7 +67,7 @@ class EffectLayer(cocos.layer.Layer):
         }
 
     def _Default(self, user, target):
-        sprite = self.assets["Strike"]
+        sprite = self.assets["Default"]
         user_position = user.spellWheel.position[0] + Globals.USER_OFFSET[0], user.spellWheel.position[1] + Globals.USER_OFFSET[1]
         target_position = target.spellWheel.position[0] + Globals.TARGET_OFFSET[0], target.spellWheel.position[1] + Globals.TARGET_OFFSET[1]
         sprite.do( Shoot(user_position, target_position, 1.0) | ColorLerp((255,255,255), (200,10,10), 1.0) | FadeOut(1.0))
