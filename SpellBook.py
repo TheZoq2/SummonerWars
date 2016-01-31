@@ -17,6 +17,9 @@ class Ingredients(Enum):
     cosmic = 6
     blood = 7
 
+    def __lt__(self, other):
+        return self.value < other.value
+
 
 
 ##############################
@@ -24,19 +27,23 @@ class Ingredients(Enum):
 
 state_spells = {
     (): SpellEffects.NoEffect,
-    (Ingredients.blood, Ingredients.fire): SpellEffects.BloodArrow,
+    (Ingredients.fire, Ingredients.blood): SpellEffects.BloodArrow,
     (Ingredients.water, Ingredients.water, Ingredients.water): SpellEffects.Strike,
-    (Ingredients.light, Ingredients.air): SpellEffects.OpenMind,
-    (Ingredients.fire, Ingredients.fire, Ingredients.air): SpellEffects.Oops,
+    (Ingredients.air, Ingredients.light): SpellEffects.OpenMind,
+    (Ingredients.air, Ingredients.fire, Ingredients.fire): SpellEffects.Oops,
     (Ingredients.air, Ingredients.cosmic): SpellEffects.Anguish,
     (Ingredients.air, Ingredients.blood): SpellEffects.Turmoil,
-    (Ingredients.cosmic, Ingredients.fire): SpellEffects.Nova,
+    (Ingredients.fire, Ingredients.cosmic): SpellEffects.Nova,
     (Ingredients.light, Ingredients.blood): SpellEffects.Heal,
     (Ingredients.light, Ingredients.light, Ingredients.blood): SpellEffects.GreaterHeal,
     (Ingredients.air, Ingredients.water, Ingredients.earth, Ingredients.fire, Ingredients.light,
                                     Ingredients.dark, Ingredients.cosmic, Ingredients.blood): SpellEffects.OmniPower,
     (Ingredients.light, Ingredients.dark): SpellEffects.Equilibrium,
 }
+
+assert(list(map(lambda seq: (list(seq) == sorted(list(seq))), list(state_spells))))
+
+list(Ingredients)
 
 class StateCaster:
 
@@ -54,7 +61,7 @@ class StateCaster:
     def cast_spell(self):
         try:
             print(self.__ingredients)
-            spell = self.__recipes[tuple(self.__ingredients)]
+            spell = self.__recipes[tuple(self.__ingredients.sort())]
         except KeyError:
             spell = self.__recipes[()]
         self.__ingredients = []
