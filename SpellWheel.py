@@ -2,6 +2,8 @@ import cocos
 from cocos.actions import *
 import pyglet
 
+import platform
+
 import math
 import random
 
@@ -74,10 +76,11 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
                 self.tryNormalCast()
 
         if axis == "z":
+            print(value)
             if value > Globals.TRIGGER_THRESHOLD:
                 self.trySelfCast()
 
-            if value < -Globals.TRIGGER_THRESHOLD:
+            if value < -Globals.TRIGGER_THRESHOLD and platform.system() == "Windows":
                 self.tryNormalCast()
 
         #Calculate stick angle
@@ -187,6 +190,6 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         sign = "+" if amnt > 0 else "-"
         lblDamageTaken = cocos.text.Label(sign + str(abs(amnt)), anchor_x="center", font_size=16, font_name=Globals.FONT_NAME, color=col)
         lblDamageTaken.position = Globals.HEALTH_LOSS_OFFSET
-        lblDamageTaken.do(FadeIn(0.2) + Delay(0.8) + FadeOut(0.4) + CallFunc(lambda : self.remove(lblDamageTaken)))
+        lblDamageTaken.do(MoveBy((0,-50), 2) | FadeIn(0.2) + Delay(0.8) + FadeOut(0.4) + CallFunc(lambda : self.remove(lblDamageTaken)))
 
         self.add(lblDamageTaken)
