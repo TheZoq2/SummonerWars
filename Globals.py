@@ -47,7 +47,7 @@ RUNE_IMAGES = [
 ]
 WHEEL_SLICE = "Assets/spellwheel_slice.png"
 
-BACKGROUND_IMAGE = "Assets/background.png"
+BACKGROUND_LAYER = "Assets/background.png"
 CLOUD_LAYER_1 = "Assets/cloudlayer2.png"
 CLOUD_LAYER_2 = "Assets/cloudlayer1.png"
 

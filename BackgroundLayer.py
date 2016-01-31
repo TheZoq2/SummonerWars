@@ -7,7 +7,7 @@ class BackgroundLayer(cocos.layer.Layer):
     def __init__(self):
         super(BackgroundLayer, self).__init__()
 
-        background = cocos.sprite.Sprite(Globals.BACKGROUND_IMAGE, anchor=(0,0))
+        background = cocos.sprite.Sprite(Globals.BACKGROUND_LAYER, anchor=(0,0))
         self.add(background)
 
         cloudlayer1 = cocos.sprite.Sprite(Globals.CLOUD_LAYER_1, anchor=(0,0))
