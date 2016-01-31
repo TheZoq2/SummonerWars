@@ -58,5 +58,6 @@ CLOUD_LAYER_2 = "Assets/cloudlayer1.png"
 HEALTHBAR_IMAGE = "Assets/hpbar.png"
 HEALTHBAR_BACKGROUND = "Assets/hpbackground.png"
 
+SPELL_DEFAULT = "Assets/particle_fire.png"
 SPELL_NOSPELL = "Assets/particle_fire.png"
 SPELL_STRIKE = "Assets/particle_fire.png"

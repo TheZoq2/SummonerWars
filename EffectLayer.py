@@ -33,14 +33,41 @@ class EffectLayer(cocos.layer.Layer):
         effectDispatchCenter.push_handlers(self)
         font.add_file(Globals.FONT_FILE)
         self.assets = {
-            "NoSpell": Sprite(Globals.SPELL_NOSPELL),
-            "Strike": Sprite(Globals.SPELL_STRIKE)
+            "NoSpell": Sprite(Globals.SPELL_DEFAULT),
+            "Heal": Sprite(Globals.SPELL_DEFAULT),
+            "GreaterHeal": Sprite(Globals.SPELL_DEFAULT),
+            "Strike": Sprite(Globals.SPELL_DEFAULT),
+            "OpenMind": Sprite(Globals.SPELL_DEFAULT),
+            "Anguish": Sprite(Globals.SPELL_DEFAULT),
+            "BloodArrow": Sprite(Globals.SPELL_DEFAULT),
+            "Turmoil": Sprite(Globals.SPELL_DEFAULT),
+            "Nova": Sprite(Globals.SPELL_DEFAULT),
+            "Equilibrium": Sprite(Globals.SPELL_DEFAULT),
+            "OmniPower": Sprite(Globals.SPELL_DEFAULT),
+            "Eruption": Sprite(Globals.SPELL_DEFAULT),
+            "Fade": Sprite(Globals.SPELL_DEFAULT),
+            "CorruptedBlood": Sprite(Globals.SPELL_DEFAULT),
         }
         self.effects = {
-            "NoSpell": self._NoSpell,
-            "Oops": self._Oops,
-            "Heal": self._Heal,
+            "NoSpell": self._Default,
+            "Heal": self._Default,
+            "GreaterHeal": self._Default,
+            "Strike": self._Default,
+            "OpenMind": self._Default,
+            "Anguish": self._Default,
+            "BloodArrow": self._Default,
+            "Turmoil": self._Default,
+            "Nova": self._Default,
+            "Equilibrium": self._Default,
+            "OmniPower": self._Default,
+            "Eruption": self._Default,
+            "Fade": self._Default,
         }
+
+    def _Default(self, user, target):
+        sprite = self.assets["Strike"]
+        sprite.do( Shoot(user.spellWheel.position, target.spellWheel.position, 1.0) | ColorLerp((255,255,255), (200,10,10), 1.0) | FadeIn(0.5) )
+        self.add(sprite)
 
     def _NoSpell(self, user, target):
         pass
@@ -52,9 +79,7 @@ class EffectLayer(cocos.layer.Layer):
         pass
 
     def _Strike(self, user, target):
-        sprite = self.assets["Strike"]
-        sprite.do( Shoot(user.spellWheel.position, target.spellWheel.position, 1.0) | ColorLerp((2,2,2), (255,0,0), 1.0) )
-        self.add(sprite)
+        pass
 
     def _show_spell_visual(self, user, target, spell):
         try:
