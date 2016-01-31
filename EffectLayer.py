@@ -66,7 +66,9 @@ class EffectLayer(cocos.layer.Layer):
 
     def _Default(self, user, target):
         sprite = self.assets["Strike"]
-        sprite.do( Shoot(user.spellWheel.position, target.spellWheel.position, 1.0) | ColorLerp((255,255,255), (200,10,10), 1.0) | FadeIn(0.5) )
+        user_position = user.spellWheel.position[0] + Globals.USER_OFFSET[0], user.spellWheel.position[1] + Globals.USER_OFFSET[1]
+        target_position = target.spellWheel.position[0] + Globals.TARGET_OFFSET[0], target.spellWheel.position[1] + Globals.TARGET_OFFSET[1]
+        sprite.do( Shoot(user_position, target_position, 1.0) | ColorLerp((255,255,255), (200,10,10), 1.0) | FadeIn(0.5) )
         self.add(sprite)
 
     def _NoSpell(self, user, target):
@@ -89,7 +91,7 @@ class EffectLayer(cocos.layer.Layer):
 
     def _show_spell_label(self, user, spell):
         label = Label(spell, anchor_x="center", font_size=16, font_name=Globals.FONT_NAME)
-        label.position = user.spellWheel.position[0]+Globals.LABEL_OFFSET_X,user.spellWheel.position[1]+Globals.LABEL_OFFSET_Y
+        label.position = user.spellWheel.position[0]+Globals.LABEL_OFFSET[0],user.spellWheel.position[1]+Globals.LABEL_OFFSET[1]
         label.opacity = 0
         label.do(FadeIn(0.2) + Delay(0.8) + FadeOut(0.4))
         self.add(label)
