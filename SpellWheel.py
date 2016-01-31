@@ -82,8 +82,9 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
             if value > Globals.TRIGGER_THRESHOLD:
                 self.trySelfCast()
 
-            if value < -Globals.TRIGGER_THRESHOLD and platform.system() == "Windows":
-                self.tryNormalCast()
+            if platform.system() == "Windows":
+                if value < -Globals.TRIGGER_THRESHOLD:
+                    self.tryNormalCast()
 
         #Calculate stick angle
         if axis == "rx" or axis == "ry":
