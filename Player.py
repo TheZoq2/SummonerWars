@@ -36,6 +36,10 @@ class Player:
     def reduceHealth(self, amount):
         self.currentHealth -= amount
 
+    def getHealth(self):
+        assert self.currentHealth <= 100
+        return self.currentHealth
+
     def addStatusEffect(self, effect, effectType, duration):
         """Allows the provided effect function to be called based on its effectType, until duration ends"""
         self.statusEffects[effectType].append((effect, duration))
