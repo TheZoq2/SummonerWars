@@ -18,7 +18,7 @@ class Player(pyglet.event.EventDispatcher):
 
         self.caster = SpellBook.Caster()
 
-        self.currentHealth = 100
+        self.currentHealth = Globals.MAX_HEALTH
         self.statusEffects = {"onHitTarget": [], "onGetHit": [], "onTargetSelf": [], "onTargetEnemy": []}
         self.fails = 0  # While >0, spells cast by this player fail.
         self.isProtected = False
