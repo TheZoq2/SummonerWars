@@ -9,18 +9,33 @@ VID_WIDTH=1280
 VID_HEIGHT=720
 VID_FULLSCREEN=False
 
-#The amount of available ingredients that the player has for each spell
-INGREDIENTS_PER_TURN = 8
+# Game play
+INGREDIENTS_PER_TURN = 8  # amount of available ingredients that the player has for each spell
+NUM_INGREDIENTS      = 8  # amount of ingredients that exist in the game
+MAX_HEALTH = 100
 
-#The amount of ingredients that exist in the game
-NUM_INGREDIENTS = 8
+POS_WHEEL_1 = (275,500)
+POS_WHEEL_2 = (1015,500)
+POS_HPBAR_1 = (50,650)
+POS_HPBAR_2 = (1100,650)
+POS_BOTTLES_1 = (120,120)
+POS_BOTTLES_2 = (900,120)
+LABEL_OFFSET_X=0
+LABEL_OFFSET_Y=-140
 
+# Controller mapping & setting
 SELECT_BUTTONS = [10, 0, 5, 9, 4]
 BACK_BUTTONS = [1]
 SELF_CAST_BUTTONS = [3]
 NORMAL_CAST_BUTTON = [2]
-
 TRIGGER_THRESHOLD = 0.5
+
+# Assets
+FONT_FILE = "Assets/PressStart2P.ttf"
+FONT_NAME = "Press Start 2P"
+
+BOTTLE_FOREGROUND = "Assets/bottle.png"
+BOTTLE_BACKGROUND = "Assets/bottleBackground.png"
 
 RUNE_IMAGES = [
     "Assets/ingredients/rune1.png",
@@ -33,28 +48,15 @@ RUNE_IMAGES = [
     "Assets/ingredients/rune8.png",
     "Assets/ingredients/rune9.png",
     "Assets/ingredients/rune10.png",
-    "Assets/ingredients/rune11.png",
-    "Assets/ingredients/rune12.png",
-    "Assets/ingredients/rune13.png",
-    "Assets/ingredients/rune14.png",
-    "Assets/ingredients/rune15.png",
-    "Assets/ingredients/rune16.png",
-    "Assets/ingredients/rune17.png",
-    "Assets/ingredients/rune18.png",
-    "Assets/ingredients/rune19.png",
-    "Assets/ingredients/rune20.png",
-    "Assets/ingredients/rune21.png",
-    "Assets/ingredients/rune22.png",
-    "Assets/ingredients/rune23.png",
-    "Assets/ingredients/rune24.png",
-    "Assets/ingredients/rune25.png",
-    "Assets/ingredients/rune26.png",
-    "Assets/ingredients/rune27.png"
 ]
+WHEEL_SLICE = "Assets/spellwheel_slice.png"
 
-class UpdateAction( InstantAction ):
-    def init(self):
-        pass
-    def start(self):
-        pass
+BACKGROUND_LAYER = "Assets/background.png"
+CLOUD_LAYER_1 = "Assets/cloudlayer2.png"
+CLOUD_LAYER_2 = "Assets/cloudlayer1.png"
 
+HEALTHBAR_IMAGE = "Assets/hpbar.png"
+HEALTHBAR_BACKGROUND = "Assets/hpbackground.png"
+
+SPELL_NOSPELL = "Assets/particle_fire.png"
+SPELL_STRIKE = "Assets/particle_fire.png"

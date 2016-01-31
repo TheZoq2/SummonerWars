@@ -4,28 +4,54 @@ from SpellWheel import *
 import SpellBook 
 import Globals
 
-class Player:
+import pyglet
+
+class Player(pyglet.event.EventDispatcher):
     def __init__(self, spellWheel):
         self.currentIngredients = []
+
+        Player.register_event_type("on_hp_change")
+        Player.register_event_type("on_damage_taken")
+        Player.register_event_type("on_spell_cast")
 
         self.other = None
 
         self.spellWheel = spellWheel
         #Subscribe to events from the spell wheel
         self.spellWheel.push_handlers(self)
+        self.push_handlers(spellWheel)
 
         self.caster = SpellBook.Caster()
 
-        self.currentHealth = 100
+        self.currentHealth = Globals.MAX_HEALTH
         self.statusEffects = {"onHitTarget": [], "onGetHit": [], "onTargetSelf": [], "onTargetEnemy": []}
         self.fails = 0  # While >0, spells cast by this player fail.
         self.isProtected = False
 
         self.choseNewIngredients()
 
+
     #Look away!
     def setOther(other, self):
         other.other = self
+
+
+    def increaseHealth(self, amount):
+        self.currentHealth += amount
+        if self.currentHealth > 100:
+            self.currentHealth = 100
+
+        self.dispatch_event("on_hp_change", self)
+
+    def reduceHealth(self, amount):
+        self.currentHealth -= amount
+
+        self.dispatch_event("on_hp_change", self)
+        self.dispatch_event("on_damage_taken")
+
+    def getHealth(self):
+        assert self.currentHealth <= 100
+        return self.currentHealth
 
     def addStatusEffect(self, effect, effectType, duration):
         """Allows the provided effect function to be called based on its effectType, until duration ends"""
@@ -50,13 +76,19 @@ class Player:
         self.spellWheel.setIngredients(self.currentIngredients)
 
     
-    def on_self_cast(self, wheel):
-        self.caster.cast_spell()(self, self)
+    def castSpell(self, event, target):
+        self.dispatch_event(event, self.spellWheel.getSelectedIngredients())
+
+        for ingredient in self.spellWheel.getSelectedIngredients():
+            self.caster.add_ingredient(ingredient)
+
+        self.caster.cast_spell()(self, target)
 
         self.updateIngredients()
+
+    def on_self_cast(self, wheel):
+        self.castSpell("on_spell_cast", self)
 
     def on_normal_cast(self, wheel):
-        self.caster.cast_spell()(self, self.other)
-
-        self.updateIngredients()
+        self.castSpell("on_spell_cast", self.other)
 
