@@ -1,5 +1,6 @@
 import pyglet
 import time
+from cocos.actions import *
 
 def EffectDispatchCenterSingletonFactory():
     class EffectDispatchCenterSingletonImplementation(pyglet.event.EventDispatcher):
@@ -58,7 +59,7 @@ def Heal(user, target):
 def GreaterHeal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier: return
-    target.increaseHealth(multiplier * 11)
+    target.increaseHealth(multiplier * 18)
     effectDispatchCenter.dispatch_spell(user, target, "GreaterHeal")
 
 def Strike(user, target):
@@ -80,7 +81,7 @@ def Anguish(user, target):
     if not multiplier: return
     def Anguished(tgt, type):
         if type != "dmg":
-            tgt.reduceHealth(20)
+            tgt.reduceHealth(35)
         return 1
 
     if multiplier:
@@ -105,9 +106,8 @@ def Turmoil(user, target):
 def Nova(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier: return
-
-    user.reduceHealth(multiplier * 5)
-    user.other.reduceHealth(multiplier * 5)
+    user.reduceHealth(multiplier * 12)
+    user.other.reduceHealth(multiplier * 12)
     effectDispatchCenter.dispatch_spell(user, target, "Nova")
 
 def Equilibrium(user, target):
@@ -123,17 +123,17 @@ def Equilibrium(user, target):
 
 def OmniPower(user, target):
     # Ignores faliure and multipliers. It's just that OP
-
-    target.reduceHealth(15)
+    target.reduceHealth(20)
     effectDispatchCenter.dispatch_spell(user, target, "OmniPower")
 
 def Eruption(user, target):
-    multiplier = HandleStatusEffects(user, target, "dmg")
-    if not multiplier: return
+    def actuallyCastIt():
+        multiplier = HandleStatusEffects(user, target, "dmg")
+        if not multiplier: return
+        target.reduceHealth(multiplier * 35)
 
-    # This should actually have a delay, but it doesn't. So it's a bit above curve right now.
-
-    target.reduceHealth(multiplier * 23)
+    user.spellWheel.do(Delay(3) + CallFunc(actuallyCastIt))
+    effectDispatchCenter.dispatch_spell(user, target, "Eruption")
 
 def Fade(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
@@ -142,8 +142,12 @@ def Fade(user, target):
     target.statusEffects["onGetHit"].append(lambda tgt, type : 0 if tgt.fails else 1)
     target.fails += 1
 
+    effectDispatchCenter.dispatch_spell(user, target, "Fade")
+
 def CorruptedBlood(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
     if not multiplier: return
 
     target.statusEffects["onGetHit"].append(lambda tgt, type : 0.5 if type == "heal" else 1)
+
+    effectDispatchCenter.dispatch_spell(user, target, "CorruptedBlood")

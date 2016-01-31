@@ -39,10 +39,16 @@ state_spells = {
     (Ingredients.air, Ingredients.water, Ingredients.earth, Ingredients.fire, Ingredients.light,
                                     Ingredients.dark, Ingredients.cosmic, Ingredients.blood): SpellEffects.OmniPower,
     (Ingredients.light, Ingredients.dark): SpellEffects.Equilibrium,
+    (Ingredients.light, Ingredients.light, Ingredients.light): SpellEffects.Strike,
+    (Ingredients.dark, Ingredients.dark, Ingredients.dark): SpellEffects.Strike,
+    (Ingredients.fire, Ingredients.fire, Ingredients.fire): SpellEffects.Strike,
+    (Ingredients.air, Ingredients.air, Ingredients.air): SpellEffects.Strike,
+    (Ingredients.earth, Ingredients.earth, Ingredients.earth): SpellEffects.Strike,
+    (Ingredients.blood, Ingredients.blood, Ingredients.blood): SpellEffects.Strike,
+    (Ingredients.cosmic, Ingredients.cosmic, Ingredients.cosmic): SpellEffects.Strike,
     (Ingredients.earth, Ingredients.fire): SpellEffects.Eruption,
     (Ingredients.air, Ingredients.light): SpellEffects.Fade,
     (Ingredients.dark, Ingredients.blood): SpellEffects.CorruptedBlood,
-
 
 }
 

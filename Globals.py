@@ -20,8 +20,9 @@ POS_HPBAR_1 = (50,650)
 POS_HPBAR_2 = (1100,650)
 POS_BOTTLES_1 = (120,120)
 POS_BOTTLES_2 = (900,120)
-LABEL_OFFSET_X=0
-LABEL_OFFSET_Y=100
+LABEL_OFFSET=(0,-140)
+USER_OFFSET=(130,0)
+TARGET_OFFSET=(-100,0)
 
 # Controller mapping & setting
 SELECT_BUTTONS = [10, 0, 5, 9, 4]
@@ -58,5 +59,6 @@ CLOUD_LAYER_2 = "Assets/cloudlayer1.png"
 HEALTHBAR_IMAGE = "Assets/hpbar.png"
 HEALTHBAR_BACKGROUND = "Assets/hpbackground.png"
 
+SPELL_DEFAULT = "Assets/particle_fire.png"
 SPELL_NOSPELL = "Assets/particle_fire.png"
 SPELL_STRIKE = "Assets/particle_fire.png"
