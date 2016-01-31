@@ -67,7 +67,7 @@ def OpenMind(user, target):
     if not multiplier: return
 
     if multiplier:
-        target.statusEffects["onGetHit"].append(lambda tgt, type : 1,2 if type == "heal" else 1)
+        target.statusEffects["onGetHit"].append(lambda tgt, type : 1.2 if type == "heal" else 1)
 
 def Anguish(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
