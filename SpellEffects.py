@@ -54,6 +54,7 @@ def Heal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier:
         effectDispatchCenter.dispatch_spell(user, target, "Heal: Failed")
+        return
     target.increaseHealth(multiplier * 7)
     effectDispatchCenter.dispatch_spell(user, target, "Heal")
 
@@ -61,6 +62,7 @@ def GreaterHeal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier:
         effectDispatchCenter.dispatch_spell(user, target, "Greater Heal: Failed")
+        return
     target.increaseHealth(multiplier * 18)
     effectDispatchCenter.dispatch_spell(user, target, "GreaterHeal")
 
@@ -68,6 +70,7 @@ def Strike(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier:
         effectDispatchCenter.dispatch_spell(user, target, "Strike: Failed")
+        return
     target.reduceHealth(multiplier * 10)
     effectDispatchCenter.dispatch_spell(user, target, "Strike")
 
@@ -75,28 +78,28 @@ def OpenMind(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
     if not multiplier:
         effectDispatchCenter.dispatch_spell(user, target, "Open Mind: Failed")
-
-    if multiplier:
-        target.statusEffects["onGetHit"].append(lambda tgt, type : 1.2 if type == "heal" else 1)
-        effectDispatchCenter.dispatch_spell(user, target, "OpenMind")
+        return
+    target.statusEffects["onGetHit"].append(lambda tgt, type : 1.2 if type == "heal" else 1)
+    effectDispatchCenter.dispatch_spell(user, target, "OpenMind")
 
 def Anguish(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
     if not multiplier:
         effectDispatchCenter.dispatch_spell(user, target, "Anguish: Failed")
+        return
     def Anguished(tgt, type):
         if type != "dmg":
             tgt.reduceHealth(35)
         return 1
 
-    if multiplier:
-        target.statusEffects["onGetHit"].append(Anguished)
-        effectDispatchCenter.dispatch_spell(user, target, "Anguish")
+    target.statusEffects["onGetHit"].append(Anguished)
+    effectDispatchCenter.dispatch_spell(user, target, "Anguish")
 
 def BloodArrow(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier:
         effectDispatchCenter.dispatch_spell(user, target, "Blood Arrow: Failed")
+        return
 
     user.reduceHealth(50)
     target.reduceHealth(multiplier * 10)
@@ -106,6 +109,7 @@ def Turmoil(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
     if not multiplier:
         effectDispatchCenter.dispatch_spell(user, target, "Turmoil: Failed")
+        return
 
     target.fails += 1
     effectDispatchCenter.dispatch_spell(user, target, "Turmoil")
@@ -114,6 +118,7 @@ def Nova(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier:
         effectDispatchCenter.dispatch_spell(user, target, "Nova: Failed")
+        return
     user.reduceHealth(multiplier * 12)
     user.other.reduceHealth(multiplier * 12)
     effectDispatchCenter.dispatch_spell(user, target, "Nova")
@@ -123,11 +128,13 @@ def Equilibrium(user, target):
         multiplier = HandleStatusEffects(user, target, "dmg")
         if not multiplier:
             effectDispatchCenter.dispatch_spell(user, target, "Equilibrium: Failed")
+            return
         target.reduceHealth(multiplier * 10)
     else:
         multiplier = HandleStatusEffects(user, target, "heal")
         if not multiplier:
             effectDispatchCenter.dispatch_spell(user, target, "Equilibrium: Failed")
+            return
         target.increaseHealth(multiplier * 10)
     effectDispatchCenter.dispatch_spell(user, target, "Equilibrium")
 
@@ -141,6 +148,7 @@ def Eruption(user, target):
         multiplier = HandleStatusEffects(user, target, "dmg")
         if not multiplier:
             effectDispatchCenter.dispatch_spell(user, target, "Eruption: Failed")
+            return
         target.reduceHealth(multiplier * 35)
 
     user.spellWheel.do(Delay(3) + CallFunc(actuallyCastIt))
@@ -150,6 +158,7 @@ def Fade(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
     if not multiplier:
         effectDispatchCenter.dispatch_spell(user, target, "Fade: Failed")
+        return
 
     target.statusEffects["onGetHit"].append(lambda tgt, type : 0 if tgt.fails else 1)
     target.fails += 1
@@ -160,6 +169,7 @@ def CorruptedBlood(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
     if not multiplier:
         effectDispatchCenter.dispatch_spell(user, target, "Corrupted Blood: Failed")
+        return
 
     target.statusEffects["onGetHit"].append(lambda tgt, type : 0.5 if type == "heal" else 1)
 
