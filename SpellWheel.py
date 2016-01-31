@@ -6,18 +6,12 @@ import math
 import random
 
 import Globals
+import util
 
 
 class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher): 
     BACKGROUND_IMAGE = "Assets/spellwheel_slice.png" 
     is_event_handler = True
-
-    symbolMap = []
-    def generateSymbols():
-        for img in Globals.RUNE_IMAGES:
-            SpellWheel.symbolMap.append(img)
-        
-        random.shuffle(SpellWheel.symbolMap)
 
     WHEEL_RADIUS = 60
 
@@ -158,7 +152,7 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
             spriteX = self.position[0] + math.cos(angleRad - math.pi / 2) * SpellWheel.WHEEL_RADIUS
             spriteY = self.position[1] + math.sin(angleRad - math.pi / 2) * SpellWheel.WHEEL_RADIUS
 
-            sprite = cocos.sprite.Sprite(SpellWheel.symbolMap[ingID])
+            sprite = cocos.sprite.Sprite(util.symbolMap[ingID])
 
             sprite.position = (spriteX, spriteY)
             self.add(sprite)
