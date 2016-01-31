@@ -45,22 +45,22 @@ def NoEffect(user, target):
     effectDispatchCenter.dispatch_spell(user, target, "NoSpell")
 
 def Oops(user, target):
-    user.currentHealth -= 10
+    user.reduceHealth(10)
     
 def Heal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier: return
-    target.currentHealth += multiplier * 7
+    target.addHealth(multiplier * 7)
 
 def GreaterHeal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier: return
-    target.currentHealth += multiplier * 11
+    target.addHealth(multiplier * 11)
 
 def Strike(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier: return
-    target.currentHealth -= multiplier * 10
+    target.reduceHealth(multiplier * 10)
 
 def OpenMind(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
@@ -74,7 +74,7 @@ def Anguish(user, target):
     if not multiplier: return
     def Anguished(tgt, type):
         if type != "dmg":
-            tgt.currentHealth -= 20
+            tgt.reduceHealth(20)
         return 1
 
     if multiplier:
@@ -84,8 +84,8 @@ def BloodArrow(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier: return
 
-    user.currentHealth -= 5
-    target.currentHealth -= multiplier * 10
+    user.reduceHealth(5)
+    target.reduceHealth(multiplier * 10)
 
 def Turmoil(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
@@ -97,20 +97,20 @@ def Nova(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier: return
 
-    user.currentHealth -= multiplier * 5
-    user.other.currentHealth -= multiplier * 5
+    user.reduceHealth(multiplier * 5)
+    user.other.reduceHealth(multiplier * 5)
 
 def Equilibrium(user, target):
     if target.currentHealth > target.other.currentHealth:
         multiplier = HandleStatusEffects(user, target, "dmg")
         if not multiplier: return
-        target.currentHealth -= multiplier * 10
+        target.reduceHealth(multiplier * 10)
     else:
         multiplier = HandleStatusEffects(user, target, "heal")
         if not multiplier: return
-        target.currentHealth += multiplier * 10
+        target.addHealth(multiplier * 10)
 
 def OmniPower(user, target):
     # Ignores faliure and multipliers. It's just that OP
 
-    target.currentHealth -= 15
+    target.reduceHealth(15)
