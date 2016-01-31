@@ -94,5 +94,5 @@ class GameScene(cocos.scene.Scene):
 
             goScene = GameOverScene(winnerName, loserName)
 
-            cocos.director.director.push(TurnOffTilesTransition( goScene, duration=1 ))
+            cocos.director.director.replace(TurnOffTilesTransition( goScene, duration=1 ))
 
