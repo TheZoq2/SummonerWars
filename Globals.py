@@ -23,6 +23,7 @@ POS_BOTTLES_2 = (900,120)
 LABEL_OFFSET=(0,-140)
 USER_OFFSET=(0,-200)
 TARGET_OFFSET=(0,0)
+HEALTH_LOSS_OFFSET = LABEL_OFFSET
 
 # Controller mapping & setting
 SELECT_BUTTONS = [10, 0, 5, 9, 4]
@@ -62,3 +63,4 @@ HEALTHBAR_BACKGROUND = "Assets/hpbackground.png"
 SPELL_DEFAULT = "Assets/particle_fire.png"
 SPELL_NOSPELL = "Assets/particle_fire.png"
 SPELL_STRIKE = "Assets/particle_fire.png"
+
