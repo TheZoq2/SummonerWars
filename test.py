@@ -12,7 +12,7 @@ def selectJoystick(joyList, startIndex):
     joystickIndex = startIndex
     joystick = joyList[joystickIndex]
     
-    while str(joystick.device).find("Teensy") != -1:
+    while str(joystick.device).find("T1eensy") != -1:
         joystickIndex += 1
         joystick = joyList[joystickIndex]
 
