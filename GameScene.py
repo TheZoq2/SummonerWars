@@ -10,6 +10,7 @@ from SpellWheel import *
 from Player import *
 from HealthBar import *
 from LastSpellDisplay import *
+from GameOverScene import *
 
 class GameScene(cocos.scene.Scene):
 
@@ -36,23 +37,26 @@ class GameScene(cocos.scene.Scene):
         spellDisplay1 = LastSpellDisplay(Globals.POS_BOTTLES_1)
         spellDisplay2 = LastSpellDisplay(Globals.POS_BOTTLES_2)
         
-        player = Player(sw1)
-        player2 = Player(sw2)
+        self.player = Player(sw1)
+        self.player2 = Player(sw2)
         
-        player.push_handlers(hp1)
-        player2.push_handlers(hp2)
+        self.player.push_handlers(hp1)
+        self.player2.push_handlers(hp2)
         
-        player.push_handlers(spellDisplay1)
-        player2.push_handlers(spellDisplay2)
+        self.player.push_handlers(spellDisplay1)
+        self.player2.push_handlers(spellDisplay2)
+
+        self.player.push_handlers(self)
+        self.player2.push_handlers(self)
         
-        player.setOther(player2)
-        player2.setOther(player)
+        self.player.setOther(self.player2)
+        self.player2.setOther(self.player)
 
         super(GameScene, self).__init__(
             BackgroundLayer(),
             EffectLayer(),
-            player.spellWheel,
-            player2.spellWheel,
+            self.player.spellWheel,
+            self.player2.spellWheel,
             hp1,
             hp2,
             spellDisplay1,
@@ -71,3 +75,20 @@ class GameScene(cocos.scene.Scene):
             joystick = joyList[joystickIndex]
 
         return (joystick, joystickIndex)
+
+    def on_hp_change(self, player):
+        winnerName = ""
+        loserName = ""
+
+        #Create a game over scene and replace yourself with that
+        if player == self.player:
+            winnerName = "Player 1"
+            loserName = "Player 2"
+        else:
+            winnerName = "Player 1"
+            loserName = "Player 2"
+
+        goScene = GameOverScene(winnerName, loserName)
+
+        cocos.director.director.push(cocos.scenes.FlipX3DTransition( goScene, duration=1 ))
+
