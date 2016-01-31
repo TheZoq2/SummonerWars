@@ -7,6 +7,7 @@ from BackgroundLayer import *
 from EffectLayer import *
 from Player import *
 from HealthBar import *
+from LastSpellDisplay import *
 
 def selectJoystick(joyList, startIndex):
     joystickIndex = startIndex
@@ -43,11 +44,17 @@ sw2 = SpellWheel(joystick2, Globals.POS_WHEEL_2)
 hp1 = HealthBar(Globals.POS_HPBAR_1)
 hp2 = HealthBar(Globals.POS_HPBAR_2)
 
+spellDisplay1 = LastSpellDisplay(Globals.POS_BOTTLES_1)
+spellDisplay2 = LastSpellDisplay(Globals.POS_BOTTLES_2)
+
 player = Player(sw1)
 player2 = Player(sw2)
 
 player.push_handlers(hp1)
 player2.push_handlers(hp2)
+
+player.push_handlers(spellDisplay1)
+player2.push_handlers(spellDisplay2)
 
 player.setOther(player2)
 player2.setOther(player)
@@ -59,5 +66,7 @@ cocos.director.director.run(cocos.scene.Scene(
     player2.spellWheel,
     hp1,
     hp2,
+    spellDisplay1,
+    spellDisplay2,
 ))
 

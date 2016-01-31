@@ -14,11 +14,12 @@ INGREDIENTS_PER_TURN = 8  # amount of available ingredients that the player has 
 NUM_INGREDIENTS      = 8  # amount of ingredients that exist in the game
 MAX_HEALTH = 100
 
-# Layout
-POS_WHEEL_1 = (139,270)
-POS_WHEEL_2 = (507,270)
+POS_WHEEL_1 = (275,500)
+POS_WHEEL_2 = (1015,500)
 POS_HPBAR_1 = (50,650)
 POS_HPBAR_2 = (1100,650)
+POS_BOTTLES_1 = (120,120)
+POS_BOTTLES_2 = (900,120)
 LABEL_OFFSET_X=0
 LABEL_OFFSET_Y=100
 
@@ -32,6 +33,9 @@ TRIGGER_THRESHOLD = 0.5
 # Assets
 FONT_FILE = "Assets/PressStart2P.ttf"
 FONT_NAME = "Press Start 2P"
+
+BOTTLE_FOREGROUND = "Assets/bottle.png"
+BOTTLE_BACKGROUND = "Assets/bottleBackground.png"
 
 RUNE_IMAGES = [
     "Assets/ingredients/rune1.png",
@@ -56,9 +60,3 @@ HEALTHBAR_BACKGROUND = "Assets/hpbackground.png"
 
 SPELL_NOSPELL = "Assets/particle_fire.png"
 SPELL_STRIKE = "Assets/particle_fire.png"
-
-class UpdateAction( InstantAction ):
-    def init(self):
-        pass
-    def start(self):
-        pass
