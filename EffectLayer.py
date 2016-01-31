@@ -10,18 +10,13 @@ def Shoot(from_pos, to_pos, duration):
 
 class EffectLayer(cocos.layer.Layer):
 
-    FIRE_IMAGE = "Assets/particle_fire.png"
-
     def __init__(self):
         super(EffectLayer, self).__init__()
         effectDispatchCenter.push_handlers(self)
 
-        self.fire_counter = 0
-        self.fire_pool = [Sprite(self.FIRE_IMAGE) for i in range(10)]
-
     def on_spell(self, user, target, type):
         label = Label(type)
-        label.position = 200,400
+        label.position = user.position
         label.opacity = 0
         label.do(FadeIn(0.2) + Delay(0.5) + FadeOut(0.4))
         self.add(label)

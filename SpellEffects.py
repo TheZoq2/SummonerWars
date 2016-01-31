@@ -50,12 +50,12 @@ def Oops(user, target):
 def Heal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier: return
-    target.addHealth(multiplier * 7)
+    target.increaseHealth(multiplier * 7)
 
 def GreaterHeal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier: return
-    target.addHealth(multiplier * 11)
+    target.increaseHealth(multiplier * 11)
 
 def Strike(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
@@ -67,7 +67,7 @@ def OpenMind(user, target):
     if not multiplier: return
 
     if multiplier:
-        target.statusEffects["onGetHit"].append(lambda tgt, type : 1,2 if type == "heal" else 1)
+        target.statusEffects["onGetHit"].append(lambda tgt, type : 1.2 if type == "heal" else 1)
 
 def Anguish(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
@@ -84,7 +84,7 @@ def BloodArrow(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier: return
 
-    user.reduceHealth(5)
+    user.reduceHealth(50)
     target.reduceHealth(multiplier * 10)
 
 def Turmoil(user, target):
@@ -108,7 +108,7 @@ def Equilibrium(user, target):
     else:
         multiplier = HandleStatusEffects(user, target, "heal")
         if not multiplier: return
-        target.addHealth(multiplier * 10)
+        target.increaseHealth(multiplier * 10)
 
 def OmniPower(user, target):
     # Ignores faliure and multipliers. It's just that OP

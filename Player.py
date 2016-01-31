@@ -7,7 +7,7 @@ import Globals
 import pyglet
 
 class Player(pyglet.event.EventDispatcher):
-    def __init__(self, spellWheel):
+    def __init__(self, spellWheel, position):
         self.currentIngredients = []
 
         self.other = None
@@ -23,7 +23,7 @@ class Player(pyglet.event.EventDispatcher):
         self.fails = 0  # While >0, spells cast by this player fail.
         self.isProtected = False
 
-        self.position = 0,0
+        self.position = position
 
         self.choseNewIngredients()
 
@@ -39,12 +39,12 @@ class Player(pyglet.event.EventDispatcher):
         if self.currentHealth > 100:
             self.currentHealth = 100
 
-        self.dispatch_event("on_hp_change")
+        self.dispatch_event("on_hp_change", self)
 
     def reduceHealth(self, amount):
         self.currentHealth -= amount
 
-        self.dispatch_event("on_hp_change")
+        self.dispatch_event("on_hp_change", self)
 
     def getHealth(self):
         assert self.currentHealth <= 100
