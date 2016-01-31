@@ -1,4 +1,5 @@
 import pyglet
+import time
 
 def EffectDispatchCenterSingletonFactory():
     class EffectDispatchCenterSingletonImplementation(pyglet.event.EventDispatcher):
@@ -125,3 +126,24 @@ def OmniPower(user, target):
 
     target.reduceHealth(15)
     effectDispatchCenter.dispatch_spell(user, target, "OmniPower")
+
+def Eruption(user, target):
+    multiplier = HandleStatusEffects(user, target, "dmg")
+    if not multiplier: return
+
+    # This should actually have a delay, but it doesn't. So it's a bit above curve right now.
+
+    target.reduceHealth(multiplier * 23)
+
+def Fade(user, target):
+    multiplier = HandleStatusEffects(user, target, "debuff")
+    if not multiplier: return
+
+    target.statusEffects["onGetHit"].append(lambda tgt, type : 0 if tgt.fails else 1)
+    target.fails += 1
+
+def CorruptedBlood(user, target):
+    multiplier = HandleStatusEffects(user, target, "debuff")
+    if not multiplier: return
+
+    target.statusEffects["onGetHit"].append(lambda tgt, type : 0.5 if type == "heal" else 1)
