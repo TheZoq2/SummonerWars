@@ -18,3 +18,11 @@ class ColorLerp(IntervalAction):
         g = self.to_color[1] * t + self.from_color[1] * (1-t)
         b = self.to_color[2] * t + self.from_color[2] * (1-t)
         self.target.color = r,g,b
+
+class UpdateAction(InstantAction):
+
+    def init(self):
+        pass
+
+    def start(self):
+        pass

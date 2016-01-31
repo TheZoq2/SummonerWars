@@ -9,11 +9,3 @@ def generateSymbols():
         symbolMap.append(img)
     
     random.shuffle(symbolMap)
-
-
-
-class UpdateAction( InstantAction ):
-    def init(self):
-        pass
-    def start(self):
-        pass

@@ -117,7 +117,7 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         #Reset color on all the backgrounds
         for i in range(len(self.backgrounds)):
             bg = self.backgrounds[i]
-            bg.do(util.UpdateAction())
+            bg.do(UpdateAction())
             
             if i in self.selectedIngredients:
                 bg.color = 255,0,0
@@ -174,7 +174,7 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
     
     def on_damage_taken(self):
         SHAKE_AMOUNT = 20
-        actionChain = util.UpdateAction()
+        actionChain = UpdateAction()
 
         for i in range(0,20):
             newX = self.position[0] + (random.random() - 0.5) * SHAKE_AMOUNT
