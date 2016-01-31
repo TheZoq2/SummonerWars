@@ -17,8 +17,8 @@ NUM_INGREDIENTS = 8
 
 POS_PLAYER_1 = (275,400)
 POS_PLAYER_2 = (1015,400)
-POS_WHEEL_1 = (139,270)
-POS_WHEEL_2 = (507,270)
+POS_WHEEL_1 = (275,500)
+POS_WHEEL_2 = (1015,500)
 POS_HPBAR_1 = (50,650)
 POS_HPBAR_2 = (1100,650)
 POS_BOTTLES_1 = (120,120)
@@ -50,9 +50,4 @@ RUNE_IMAGES = [
 ]
 
 
-class UpdateAction( InstantAction ):
-    def init(self):
-        pass
-    def start(self):
-        pass
 

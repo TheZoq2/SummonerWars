@@ -10,11 +10,16 @@ class Player(pyglet.event.EventDispatcher):
     def __init__(self, spellWheel, position):
         self.currentIngredients = []
 
+        Player.register_event_type("on_hp_change")
+        Player.register_event_type("on_damage_taken")
+        Player.register_event_type("on_spell_cast")
+
         self.other = None
 
         self.spellWheel = spellWheel
         #Subscribe to events from the spell wheel
         self.spellWheel.push_handlers(self)
+        self.push_handlers(spellWheel)
 
         self.caster = SpellBook.Caster()
 
@@ -27,8 +32,6 @@ class Player(pyglet.event.EventDispatcher):
 
         self.choseNewIngredients()
 
-        Player.register_event_type("on_hp_change")
-        Player.register_event_type("on_spell_cast")
 
     #Look away!
     def setOther(other, self):
@@ -46,6 +49,7 @@ class Player(pyglet.event.EventDispatcher):
         self.currentHealth -= amount
 
         self.dispatch_event("on_hp_change", self)
+        self.dispatch_event("on_damage_taken")
 
     def getHealth(self):
         assert self.currentHealth <= 100
