@@ -10,7 +10,7 @@ import util
 
 
 class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher): 
-    BACKGROUND_IMAGE = "Assets/spellwheel_slice.png" 
+    BACKGROUND_IMAGE = Globals.WHEEL_SLICE
     is_event_handler = True
 
     WHEEL_RADIUS = 60
@@ -32,7 +32,6 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
             angle = i * 360 / Globals.INGREDIENTS_PER_TURN
 
             self.backgrounds[i].rotation = angle
-            self.backgrounds[i].position = self.position
             self.backgrounds[i].image_anchor = 0,0
             self.backgrounds[i].color = 255,255,255
             self.add(self.backgrounds[i])
@@ -40,11 +39,10 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         self.currentAngle = 0
         self.currentSector = 0
 
-        self.joystick = joystick
-
-        self.joystick.open()
-
-        self.joystick.push_handlers(self)
+        if joystick:
+            self.joystick = joystick
+            self.joystick.open()
+            self.joystick.push_handlers(self)
 
         SpellWheel.register_event_type("on_self_cast")
         SpellWheel.register_event_type("on_normal_cast")
@@ -101,7 +99,6 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
 
         self.updateSectorVisualisation()
 
-    
     def trySelfCast(self):
         if self.selectedIngredients:
             self.dispatch_event("on_self_cast", self)
@@ -115,7 +112,7 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         #Reset color on all the backgrounds
         for i in range(len(self.backgrounds)):
             bg = self.backgrounds[i]
-            bg.do(Globals.UpdateAction())
+            bg.do(util.UpdateAction())
             
             if i in self.selectedIngredients:
                 bg.color = 255,0,0
@@ -149,8 +146,8 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
             
             angleRad = angle / 180 * math.pi
 
-            spriteX = self.position[0] + math.cos(angleRad - math.pi / 2) * SpellWheel.WHEEL_RADIUS
-            spriteY = self.position[1] + math.sin(angleRad - math.pi / 2) * SpellWheel.WHEEL_RADIUS
+            spriteX = math.cos(angleRad - math.pi / 2) * SpellWheel.WHEEL_RADIUS
+            spriteY = math.sin(angleRad - math.pi / 2) * SpellWheel.WHEEL_RADIUS
 
             sprite = cocos.sprite.Sprite(util.symbolMap[ingID])
 
@@ -169,3 +166,18 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
     
     def getSelectedIngredientIndexes(self):
         return self.selectedIngredients
+    
+    def on_damage_taken(self):
+        SHAKE_AMOUNT = 20
+        actionChain = util.UpdateAction()
+
+        for i in range(0,20):
+            newX = self.position[0] + (random.random() - 0.5) * SHAKE_AMOUNT
+            newY = self.position[1] + (random.random() - 0.5) * SHAKE_AMOUNT
+
+            SHAKE_AMOUNT -= 1
+            actionChain += Place((newX, newY))
+            actionChain += Delay(0.05)
+
+        self.do(actionChain)
+

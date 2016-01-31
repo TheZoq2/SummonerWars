@@ -3,6 +3,7 @@ from cocos.actions import *
 import pyglet
 
 import Globals
+import util
 
 class HealthBar(cocos.layer.Layer): 
     def __init__(self, position):
@@ -10,8 +11,8 @@ class HealthBar(cocos.layer.Layer):
 
         self.position = position
 
-        self.sprite = cocos.sprite.Sprite("Assets/hpbar.png")
-        self.bg = cocos.sprite.Sprite("Assets/hpbackground.png")
+        self.sprite = cocos.sprite.Sprite(Globals.HEALTHBAR_IMAGE)
+        self.bg = cocos.sprite.Sprite(Globals.HEALTHBAR_BACKGROUND)
 
         self.sprite.image_anchor = 0,0
         self.bg.image_anchor = 0,0
@@ -24,7 +25,7 @@ class HealthBar(cocos.layer.Layer):
 
         self.sprite.scale_x = size
 
-        self.sprite.do(Globals.UpdateAction())
+        self.sprite.do(util.UpdateAction())
 
         print("Health changed")
         print(player.getHealth())
