@@ -11,7 +11,9 @@ class HealthBar(cocos.layer.Layer):
         self.position = position
 
         self.sprite = cocos.sprite.Sprite("Assets/hpbar.png")
-        self.add(sprite)
+        self.bg = cocos.sprite.Sprite("Assets/hpbackground.png")
+        self.add(self.sprite)
+        self.add(self.bg)
 
     def on_health_change(self, player):
         size = player.getHealth() / Globals.MAX_HEALTH
