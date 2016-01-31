@@ -83,10 +83,11 @@ class GameScene(cocos.scene.Scene):
             winnerName = ""
             loserName = ""
 
+            print(player, self.player)
             #Create a game over scene and replace yourself with that
             if player == self.player:
-                winnerName = "Player 1"
-                loserName = "Player 2"
+                winnerName = "Player 2"
+                loserName = "Player 1"
             else:
                 winnerName = "Player 1"
                 loserName = "Player 2"
