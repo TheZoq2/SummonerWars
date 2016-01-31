@@ -10,6 +10,8 @@ import random
 import Globals
 import util
 
+from Actions import *
+
 
 class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher): 
     BACKGROUND_IMAGE = Globals.WHEEL_SLICE
@@ -190,6 +192,6 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         sign = "+" if amnt > 0 else "-"
         lblDamageTaken = cocos.text.Label(sign + str(abs(amnt)), anchor_x="center", font_size=16, font_name=Globals.FONT_NAME, color=col)
         lblDamageTaken.position = Globals.HEALTH_LOSS_OFFSET
-        lblDamageTaken.do(MoveBy((0,-50), 2) | FadeIn(0.2) + Delay(0.8) + FadeOut(0.4) + CallFunc(lambda : self.remove(lblDamageTaken)))
+        lblDamageTaken.do(MoveBy((0,-50), 2) | FadeIn(0.2) + Delay(0.8) + FadeOut(0.4) + Remove())
 
         self.add(lblDamageTaken)
