@@ -38,6 +38,8 @@ FONT_NAME = "Press Start 2P"
 BOTTLE_FOREGROUND = "Assets/bottle.png"
 BOTTLE_BACKGROUND = "Assets/bottleBackground.png"
 
+MUSIC_FILE = "Assets/music/SummonerWars.wav"
+
 RUNE_IMAGES = [
     "Assets/ingredients/rune1.png",
     "Assets/ingredients/rune2.png",
