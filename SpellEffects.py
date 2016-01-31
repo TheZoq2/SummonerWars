@@ -1,5 +1,6 @@
 import pyglet
-import time
+import cocos
+import cocos.actions
 
 def EffectDispatchCenterSingletonFactory():
     class EffectDispatchCenterSingletonImplementation(pyglet.event.EventDispatcher):
@@ -128,12 +129,15 @@ def OmniPower(user, target):
     effectDispatchCenter.dispatch_spell(user, target, "OmniPower")
 
 def Eruption(user, target):
-    multiplier = HandleStatusEffects(user, target, "dmg")
-    if not multiplier: return
+    def actuallyCastIt():
+        multiplier = HandleStatusEffects(user, target, "dmg")
+        if not multiplier: return
+        target.reduceHealth(multiplier * 23)
+
+    user.spellWheel.do(cocos.actions.Delay(4) + cocos.actions.CallFunc(actuallyCastIt))
+
 
     # This should actually have a delay, but it doesn't. So it's a bit above curve right now.
-
-    target.reduceHealth(multiplier * 23)
 
 def Fade(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
