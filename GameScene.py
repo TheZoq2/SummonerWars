@@ -1,5 +1,6 @@
 import cocos
 import pyglet
+from cocos.scenes import *
 
 import util
 
@@ -77,18 +78,19 @@ class GameScene(cocos.scene.Scene):
         return (joystick, joystickIndex)
 
     def on_hp_change(self, player):
-        winnerName = ""
-        loserName = ""
+        if player.getHealth() <= 0:
+            winnerName = ""
+            loserName = ""
 
-        #Create a game over scene and replace yourself with that
-        if player == self.player:
-            winnerName = "Player 1"
-            loserName = "Player 2"
-        else:
-            winnerName = "Player 1"
-            loserName = "Player 2"
+            #Create a game over scene and replace yourself with that
+            if player == self.player:
+                winnerName = "Player 1"
+                loserName = "Player 2"
+            else:
+                winnerName = "Player 1"
+                loserName = "Player 2"
 
-        goScene = GameOverScene(winnerName, loserName)
+            goScene = GameOverScene(winnerName, loserName)
 
-        cocos.director.director.push(cocos.scenes.FlipX3DTransition( goScene, duration=1 ))
+            cocos.director.director.push(TurnOffTilesTransition( goScene, duration=1 ))
 
