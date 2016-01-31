@@ -1,6 +1,3 @@
-import cocos
-from cocos.actions import *
-
 # Name of the game
 GAME_NAME="Summoner Wars"
 
@@ -63,4 +60,3 @@ HEALTHBAR_BACKGROUND = "Assets/hpbackground.png"
 SPELL_DEFAULT = "Assets/particle_fire.png"
 SPELL_NOSPELL = "Assets/particle_fire.png"
 SPELL_STRIKE = "Assets/particle_fire.png"
-
