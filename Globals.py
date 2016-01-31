@@ -64,3 +64,6 @@ HEALTHBAR_BACKGROUND = "Assets/hpbackground.png"
 SPELL_DEFAULT = "Assets/particle_fire.png"
 SPELL_NOSPELL = "Assets/particle_fire.png"
 SPELL_STRIKE = "Assets/particle_fire.png"
+
+HEALTH_LOSS_X_OFFSET = -10
+HEALTH_LOSS_Y_OFFSET = -130
