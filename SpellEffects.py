@@ -123,7 +123,7 @@ def Equilibrium(user, target):
 
 def OmniPower(user, target):
     # Ignores faliure and multipliers. It's just that OP
-    target.reduceHealth(20)
+    target.reduceHealth(56)
     effectDispatchCenter.dispatch_spell(user, target, "OmniPower")
 
 def Eruption(user, target):

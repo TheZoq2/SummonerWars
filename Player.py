@@ -38,12 +38,14 @@ class Player(pyglet.event.EventDispatcher):
 
     def increaseHealth(self, amount):
         self.currentHealth += amount
+        self.spellWheel.display_health_loss(amount)
         if self.currentHealth > 100:
             self.currentHealth = 100
 
         self.dispatch_event("on_hp_change", self)
 
     def reduceHealth(self, amount):
+        self.spellWheel.display_health_loss(-amount)
         self.currentHealth -= amount
 
         self.dispatch_event("on_hp_change", self)
@@ -87,8 +89,10 @@ class Player(pyglet.event.EventDispatcher):
         self.updateIngredients()
 
     def on_self_cast(self, wheel):
+        print("Self cast")
         self.castSpell("on_spell_cast", self)
 
     def on_normal_cast(self, wheel):
+        print("Enemy cast")
         self.castSpell("on_spell_cast", self.other)
 
