@@ -6,12 +6,13 @@ from SpellWheel import *
 from BackgroundLayer import *
 from EffectLayer import *
 from Player import *
+from HealthBar import *
 
 def selectJoystick(joyList, startIndex):
     joystickIndex = startIndex
     joystick = joyList[joystickIndex]
     
-    while str(joystick.device).find("Teensy") != -1:
+    while str(joystick.device).find("T1eensy") != -1:
         joystickIndex += 1
         joystick = joyList[joystickIndex]
 
@@ -32,11 +33,17 @@ print("Player2: " + str(joystick2.device))
 
 SpellWheel.generateSymbols()
 
-sw1 = SpellWheel(joystick, (100,300))
-sw2 = SpellWheel(joystick2, (500,300))
+sw1 = SpellWheel(joystick, Globals.POS_WHEEL_1)
+sw2 = SpellWheel(joystick2, Globals.POS_WHEEL_2)
 
-player = Player(sw1)
-player2 = Player(sw2)
+hp1 = HealthBar(Globals.POS_HPBAR_1)
+hp2 = HealthBar(Globals.POS_HPBAR_2)
+
+player = Player(sw1, Globals.POS_PLAYER_1)
+player2 = Player(sw2, Globals.POS_PLAYER_2)
+
+player.push_handlers(hp1)
+player2.push_handlers(hp2)
 
 player.setOther(player2)
 player2.setOther(player)
@@ -45,6 +52,8 @@ cocos.director.director.run(cocos.scene.Scene(
     BackgroundLayer(),
     EffectLayer(),
     player.spellWheel,
-    player2.spellWheel
+    player2.spellWheel,
+    hp1,
+    hp2,
 ))
 

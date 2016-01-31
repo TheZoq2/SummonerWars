@@ -1,3 +1,17 @@
+import pyglet
+import time
+
+def EffectDispatchCenterSingletonFactory():
+    class EffectDispatchCenterSingletonImplementation(pyglet.event.EventDispatcher):
+        def __init__(self):
+            EffectDispatchCenterSingletonImplementation.register_event_type("on_spell")
+
+        def dispatch_spell(self, user, target, type):
+            self.dispatch_event("on_spell", user, target, type)
+
+    return EffectDispatchCenterSingletonImplementation()
+
+effectDispatchCenter = EffectDispatchCenterSingletonFactory()
 
 ################################
 ## Spell effect implementations
@@ -29,65 +43,107 @@ def HandleStatusEffects(user, target, type):
 
 def NoEffect(user, target):
     print("No spell")
+    effectDispatchCenter.dispatch_spell(user, target, "NoSpell")
 
 def Oops(user, target):
-    user.currentHealth -= 10
+    user.reduceHealth(10)
+    effectDispatchCenter.dispatch_spell(user, target, "Oops")
     
 def Heal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier: return
-    target.currentHealth += multiplier * 7
+    target.increaseHealth(multiplier * 7)
+    effectDispatchCenter.dispatch_spell(user, target, "Heal")
 
 def GreaterHeal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier: return
-    target.currentHealth += multiplier * 11
+    target.increaseHealth(multiplier * 11)
+    effectDispatchCenter.dispatch_spell(user, target, "GreaterHeal")
 
 def Strike(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier: return
-    target.currentHealth -= multiplier * 10
+    target.reduceHealth(multiplier * 10)
+    effectDispatchCenter.dispatch_spell(user, target, "Strike")
 
 def OpenMind(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
     if not multiplier: return
 
     if multiplier:
-        target.statusEffects["onGetHit"].append(lambda tgt, type : 1,2 if type == "heal" else 1)
+        target.statusEffects["onGetHit"].append(lambda tgt, type : 1.2 if type == "heal" else 1)
+        effectDispatchCenter.dispatch_spell(user, target, "OpenMind")
 
 def Anguish(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
     if not multiplier: return
     def Anguished(tgt, type):
         if type != "dmg":
-            tgt.currentHealth -= 20
+            tgt.reduceHealth(20)
         return 1
 
     if multiplier:
         target.statusEffects["onGetHit"].append(Anguished)
+        effectDispatchCenter.dispatch_spell(user, target, "Anguish")
 
 def BloodArrow(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier: return
 
-    user.currentHealth -= 5
-    target.currentHealth -= multiplier * 10
+    user.reduceHealth(50)
+    target.reduceHealth(multiplier * 10)
+    effectDispatchCenter.dispatch_spell(user, target, "BloodArrow")
 
 def Turmoil(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
     if not multiplier: return
 
     target.fails += 1
+    effectDispatchCenter.dispatch_spell(user, target, "Turmoil")
 
 def Nova(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier: return
-    if target == user: return  # I'd rather it workd here too, but I have no reference to the other player if they aren't the target AFAIK
 
-    user.currentHealth -= multiplier * 5
-    target.currentHealth -= multiplier * 5
+    user.reduceHealth(multiplier * 5)
+    user.other.reduceHealth(multiplier * 5)
+    effectDispatchCenter.dispatch_spell(user, target, "Nova")
+
+def Equilibrium(user, target):
+    if target.currentHealth > target.other.currentHealth:
+        multiplier = HandleStatusEffects(user, target, "dmg")
+        if not multiplier: return
+        target.reduceHealth(multiplier * 10)
+    else:
+        multiplier = HandleStatusEffects(user, target, "heal")
+        if not multiplier: return
+        target.increaseHealth(multiplier * 10)
+    effectDispatchCenter.dispatch_spell(user, target, "Equilibrium")
 
 def OmniPower(user, target):
     # Ignores faliure and multipliers. It's just that OP
 
-    target.currentHealth -= 15
+    target.reduceHealth(15)
+    effectDispatchCenter.dispatch_spell(user, target, "OmniPower")
+
+def Eruption(user, target):
+    multiplier = HandleStatusEffects(user, target, "dmg")
+    if not multiplier: return
+
+    # This should actually have a delay, but it doesn't. So it's a bit above curve right now.
+
+    target.reduceHealth(multiplier * 23)
+
+def Fade(user, target):
+    multiplier = HandleStatusEffects(user, target, "debuff")
+    if not multiplier: return
+
+    target.statusEffects["onGetHit"].append(lambda tgt, type : 0 if tgt.fails else 1)
+    target.fails += 1
+
+def CorruptedBlood(user, target):
+    multiplier = HandleStatusEffects(user, target, "debuff")
+    if not multiplier: return
+
+    target.statusEffects["onGetHit"].append(lambda tgt, type : 0.5 if type == "heal" else 1)
