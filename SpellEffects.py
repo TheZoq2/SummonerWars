@@ -36,12 +36,12 @@ def Oops(user, target):
 def Heal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier: return
-    target.currentHealth += multiplier * 7
+    target.currentHealth += multiplier * 10
 
 def GreaterHeal(user, target):
     multiplier = HandleStatusEffects(user, target, "heal")
     if not multiplier: return
-    target.currentHealth += multiplier * 11
+    target.currentHealth += multiplier * 18
 
 def Strike(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
@@ -53,14 +53,14 @@ def OpenMind(user, target):
     if not multiplier: return
 
     if multiplier:
-        target.statusEffects["onGetHit"].append(lambda tgt, type : 1,2 if type == "heal" else 1)
+        target.statusEffects["onGetHit"].append(lambda tgt, type : 1.2 if type == "heal" else 1)
 
 def Anguish(user, target):
     multiplier = HandleStatusEffects(user, target, "debuff")
     if not multiplier: return
     def Anguished(tgt, type):
         if type != "dmg":
-            tgt.currentHealth -= 20
+            tgt.currentHealth -= 35
         return 1
 
     if multiplier:
@@ -83,20 +83,20 @@ def Nova(user, target):
     multiplier = HandleStatusEffects(user, target, "dmg")
     if not multiplier: return
 
-    user.currentHealth -= multiplier * 5
-    user.other.currentHealth -= multiplier * 5
+    user.currentHealth -= multiplier * 12
+    user.other.currentHealth -= multiplier * 12
 
 def Equilibrium(user, target):
     if target.currentHealth > target.other.currentHealth:
         multiplier = HandleStatusEffects(user, target, "dmg")
         if not multiplier: return
-        target.currentHealth -= multiplier * 10
+        target.currentHealth -= multiplier * 16
     else:
         multiplier = HandleStatusEffects(user, target, "heal")
         if not multiplier: return
-        target.currentHealth += multiplier * 10
+        target.currentHealth += multiplier * 16
 
 def OmniPower(user, target):
     # Ignores faliure and multipliers. It's just that OP
 
-    target.currentHealth -= 15
+    target.currentHealth -= 20
