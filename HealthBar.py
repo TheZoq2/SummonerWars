@@ -10,8 +10,8 @@ class HealthBar(cocos.layer.Layer):
 
         self.position = position
 
-        self.sprite = cocos.sprite.Sprite("Assets/hpbar.png")
-        self.bg = cocos.sprite.Sprite("Assets/hpbackground.png")
+        self.sprite = cocos.sprite.Sprite(Globals.HEALTHBAR_IMAGE)
+        self.bg = cocos.sprite.Sprite(Globals.HEALTHBAR_BACKGROUND)
 
         self.sprite.image_anchor = 0,0
         self.bg.image_anchor = 0,0

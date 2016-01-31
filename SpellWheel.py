@@ -9,7 +9,7 @@ import Globals
 
 
 class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher): 
-    BACKGROUND_IMAGE = "Assets/spellwheel_slice.png" 
+    BACKGROUND_IMAGE = Globals.WHEEL_SLICE
     is_event_handler = True
 
     symbolMap = []

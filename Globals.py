@@ -31,6 +31,7 @@ TRIGGER_THRESHOLD = 0.5
 
 # Assets
 FONT_FILE = "Assets/PressStart2P.ttf"
+FONT_NAME = "Press Start 2P"
 
 RUNE_IMAGES = [
     "Assets/ingredients/rune1.png",
@@ -44,10 +45,14 @@ RUNE_IMAGES = [
     "Assets/ingredients/rune9.png",
     "Assets/ingredients/rune10.png",
 ]
+WHEEL_SLICE = "Assets/spellwheel_slice.png"
 
 BACKGROUND_IMAGE = "Assets/background.png"
 CLOUD_LAYER_1 = "Assets/cloudlayer2.png"
 CLOUD_LAYER_2 = "Assets/cloudlayer1.png"
+
+HEALTHBAR_IMAGE = "Assets/hpbar.png"
+HEALTHBAR_BACKGROUND = "Assets/hpbackground.png"
 
 class UpdateAction( InstantAction ):
     def init(self):

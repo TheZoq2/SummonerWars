@@ -20,7 +20,7 @@ class EffectLayer(cocos.layer.Layer):
         font.add_file(Globals.FONT_FILE)
 
     def on_spell(self, user, target, type):
-        label = Label(type, anchor_x="center", font_size=16, font_name="Press Start 2P")
+        label = Label(type, anchor_x="center", font_size=16, font_name=Globals.FONT_NAME)
         label.position = user.position
         label.opacity = 0
         label.do(FadeIn(0.2) + Delay(0.8) + FadeOut(0.4))
