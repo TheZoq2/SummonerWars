@@ -21,6 +21,8 @@ POS_WHEEL_1 = (139,270)
 POS_WHEEL_2 = (507,270)
 POS_HPBAR_1 = (50,650)
 POS_HPBAR_2 = (1100,650)
+POS_BOTTLES_1 = (120,120)
+POS_BOTTLES_2 = (900,120)
 
 SELECT_BUTTONS = [10, 0, 5, 9, 4]
 BACK_BUTTONS = [1]
@@ -30,6 +32,9 @@ NORMAL_CAST_BUTTON = [2]
 TRIGGER_THRESHOLD = 0.5
 
 MAX_HEALTH = 100
+
+BOTTLE_FOREGROUND = "Assets/bottle.png"
+BOTTLE_BACKGROUND = "Assets/bottleBackground.png"
 
 RUNE_IMAGES = [
     "Assets/ingredients/rune1.png",
@@ -43,6 +48,7 @@ RUNE_IMAGES = [
     "Assets/ingredients/rune9.png",
     "Assets/ingredients/rune10.png",
 ]
+
 
 class UpdateAction( InstantAction ):
     def init(self):
