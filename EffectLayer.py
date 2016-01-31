@@ -9,6 +9,11 @@ from SpellEffects import effectDispatchCenter
 
 from pyglet import font
 
+class Remove(InstantAction):
+
+    def start(self):
+        self.target.kill()
+
 class ColorLerp(IntervalAction):
 
     def init(self, from_color, to_color, duration):
@@ -33,7 +38,9 @@ class EffectLayer(cocos.layer.Layer):
         effectDispatchCenter.push_handlers(self)
         font.add_file(Globals.FONT_FILE)
         self.assets = {
-            "NoSpell": Sprite(Globals.SPELL_DEFAULT),
+            "Default": Sprite(Globals.SPELL_DEFAULT),
+            "Oops": Sprite(Globals.SPELL_DEFAULT),
+            "NoSpell": Sprite(Globals.SPELL_NOSPELL),
             "Heal": Sprite(Globals.SPELL_DEFAULT),
             "GreaterHeal": Sprite(Globals.SPELL_DEFAULT),
             "Strike": Sprite(Globals.SPELL_DEFAULT),
@@ -49,10 +56,12 @@ class EffectLayer(cocos.layer.Layer):
             "CorruptedBlood": Sprite(Globals.SPELL_DEFAULT),
         }
         self.effects = {
-            "NoSpell": self._Default,
-            "Heal": self._Default,
-            "GreaterHeal": self._Default,
-            "Strike": self._Default,
+            "Default": self._Default,
+            "Oops": self._Oops,
+            "NoSpell": self._NoSpell,
+            "Heal": self._Heal,
+            "GreaterHeal": self._Heal,
+            "Strike": self._Strike,
             "OpenMind": self._Default,
             "Anguish": self._Default,
             "BloodArrow": self._Default,
@@ -65,23 +74,39 @@ class EffectLayer(cocos.layer.Layer):
         }
 
     def _Default(self, user, target):
-        sprite = self.assets["Strike"]
+        sprite = self.assets["Default"]
         user_position = user.spellWheel.position[0] + Globals.USER_OFFSET[0], user.spellWheel.position[1] + Globals.USER_OFFSET[1]
         target_position = target.spellWheel.position[0] + Globals.TARGET_OFFSET[0], target.spellWheel.position[1] + Globals.TARGET_OFFSET[1]
-        sprite.do( Shoot(user_position, target_position, 1.0) | ColorLerp((255,255,255), (200,10,10), 1.0) | FadeIn(0.5) )
+        sprite.do(Shoot(user_position, target_position, 1.0) | ColorLerp((255,255,255), (200,10,10), 1.0) | FadeOut(1.0))
         self.add(sprite)
 
     def _NoSpell(self, user, target):
-        pass
+        sprite = self.assets["NoSpell"]
+        user_position = user.spellWheel.position[0] + Globals.USER_OFFSET[0], user.spellWheel.position[1] + Globals.USER_OFFSET[1] - 56
+        target_position = user.spellWheel.position[0] + Globals.USER_OFFSET[0], user.spellWheel.position[1] + Globals.USER_OFFSET[1] + 64
+        sprite.do(Shoot(user_position, target_position, 1.0) | ColorLerp((127,127,127), (255,255,255), 1.0) | FadeOut(1.0))
+        self.add(sprite)
 
     def _Oops(self, user, target):
-        pass
+        sprite = self.assets["Oops"]
+        user_position = user.spellWheel.position[0] + Globals.USER_OFFSET[0], user.spellWheel.position[1] + Globals.USER_OFFSET[1]
+        target_position = user.spellWheel.position[0] + Globals.TARGET_OFFSET[0], user.spellWheel.position[1] + Globals.TARGET_OFFSET[1]
+        sprite.do(Shoot(user_position, target_position, 1.0) | ColorLerp((255,255,255), (200,10,10), 1.0) | FadeOut(1.0))
+        self.add(sprite)
 
     def _Heal(self, user, target):
-        pass
+        sprite = self.assets["Heal"]
+        user_position = user.spellWheel.position[0] + Globals.USER_OFFSET[0], user.spellWheel.position[1] + Globals.USER_OFFSET[1]
+        target_position = target.spellWheel.position[0] + Globals.TARGET_OFFSET[0], target.spellWheel.position[1] + Globals.TARGET_OFFSET[1]
+        sprite.do(Shoot(user_position, target_position, 1.0) | ColorLerp((192,192,192), (255,255,255), 1.0) | FadeOut(1.0))
+        self.add(sprite)
 
     def _Strike(self, user, target):
-        pass
+        sprite = self.assets["Strike"]
+        user_position = user.spellWheel.position[0] + Globals.USER_OFFSET[0], user.spellWheel.position[1] + Globals.USER_OFFSET[1]
+        target_position = target.spellWheel.position[0] + Globals.TARGET_OFFSET[0], target.spellWheel.position[1] + Globals.TARGET_OFFSET[1]
+        sprite.do(Shoot(user_position, target_position, 1.0) | ColorLerp((127,127,127), (0,0,0), 1.0) | FadeOut(1.0))
+        self.add(sprite)
 
     def _show_spell_visual(self, user, target, spell):
         try:
@@ -93,7 +118,7 @@ class EffectLayer(cocos.layer.Layer):
         label = Label(spell, anchor_x="center", font_size=16, font_name=Globals.FONT_NAME)
         label.position = user.spellWheel.position[0]+Globals.LABEL_OFFSET[0],user.spellWheel.position[1]+Globals.LABEL_OFFSET[1]
         label.opacity = 0
-        label.do(FadeIn(0.2) + Delay(0.8) + FadeOut(0.4))
+        label.do(FadeIn(0.2) + Delay(0.8) + FadeOut(0.4) + Remove())
         self.add(label)
 
     def on_spell(self, user, target, spell):
