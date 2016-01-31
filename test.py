@@ -10,7 +10,10 @@ from HealthBar import *
 
 def selectJoystick(joyList, startIndex):
     joystickIndex = startIndex
-    joystick = joyList[joystickIndex]
+    try:
+        joystick = joyList[joystickIndex]
+    except IndexError:
+        return None,joystickIndex
     
     while str(joystick.device).find("T1eensy") != -1:
         joystickIndex += 1
@@ -25,11 +28,12 @@ joyList = pyglet.input.get_joysticks()
 print(joyList)
 
 joystick,joyIndex = selectJoystick(joyList, 0)
-
-print("Player1: " + str(joystick.device))
+if joystick:
+    print("Player1: " + str(joystick.device))
 
 joystick2,joyIndex = selectJoystick(joyList, joyIndex + 1)
-print("Player2: " + str(joystick2.device))
+if joystick2:
+    print("Player2: " + str(joystick2.device))
 
 SpellWheel.generateSymbols()
 

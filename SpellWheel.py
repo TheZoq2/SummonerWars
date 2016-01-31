@@ -46,11 +46,10 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         self.currentAngle = 0
         self.currentSector = 0
 
-        self.joystick = joystick
-
-        self.joystick.open()
-
-        self.joystick.push_handlers(self)
+        if joystick:
+            self.joystick = joystick
+            self.joystick.open()
+            self.joystick.push_handlers(self)
 
         SpellWheel.register_event_type("on_self_cast")
         SpellWheel.register_event_type("on_normal_cast")
