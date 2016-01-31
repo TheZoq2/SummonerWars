@@ -1,3 +1,16 @@
+import pyglet
+
+def EffectDispatchCenterSingletonFactory():
+    class EffectDispatchCenterSingletonImplementation(pyglet.event.EventDispatcher):
+        def __init__(self):
+            EffectDispatchCenterSingletonImplementation.register_event_type("on_spell")
+
+        def dispatch_spell(self, user, target, type):
+            self.dispatch_event("on_spell", user, target, type)
+
+    return EffectDispatchCenterSingletonImplementation()
+
+effectDispatchCenter = EffectDispatchCenterSingletonFactory()
 
 ################################
 ## Spell effect implementations
@@ -29,6 +42,7 @@ def HandleStatusEffects(user, target, type):
 
 def NoEffect(user, target):
     print("No spell")
+    effectDispatchCenter.dispatch_spell(user, target, "NoSpell")
 
 def Oops(user, target):
     user.reduceHealth(10)

@@ -15,6 +15,11 @@ INGREDIENTS_PER_TURN = 8
 #The amount of ingredients that exist in the game
 NUM_INGREDIENTS = 8
 
+POS_PLAYER_1 = (0,0)
+POS_PLAYER_2 = (0,0)
+POS_WHEEL_1 = (139,270)
+POS_WHEEL_2 = (507,270)
+
 SELECT_BUTTONS = [10, 0, 5, 9, 4]
 BACK_BUTTONS = [1]
 SELF_CAST_BUTTONS = [3]

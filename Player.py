@@ -21,6 +21,8 @@ class Player:
         self.fails = 0  # While >0, spells cast by this player fail.
         self.isProtected = False
 
+        self.position = 0,0
+
         self.choseNewIngredients()
 
     #Look away!
@@ -69,6 +71,9 @@ class Player:
         self.updateIngredients()
 
     def on_normal_cast(self, wheel):
+        for ingredient in self.spellWheel.getSelectedIngredients():
+            self.caster.add_ingredient(ingredient)
+
         self.caster.cast_spell()(self, self.other)
 
         self.updateIngredients()
