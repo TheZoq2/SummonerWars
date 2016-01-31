@@ -4,8 +4,10 @@ from SpellWheel import *
 import SpellBook 
 import Globals
 
-class Player:
-    def __init__(self, spellWheel):
+import pyglet
+
+class Player(pyglet.event.EventDispatcher):
+    def __init__(self, spellWheel, position):
         self.currentIngredients = []
 
         self.other = None
@@ -16,14 +18,16 @@ class Player:
 
         self.caster = SpellBook.Caster()
 
-        self.currentHealth = 100
+        self.currentHealth = Globals.MAX_HEALTH
         self.statusEffects = {"onHitTarget": [], "onGetHit": [], "onTargetSelf": [], "onTargetEnemy": []}
         self.fails = 0  # While >0, spells cast by this player fail.
         self.isProtected = False
 
-        self.position = 0,0
+        self.position = position
 
         self.choseNewIngredients()
+
+        Player.register_event_type("on_hp_change")
 
     #Look away!
     def setOther(other, self):
@@ -35,8 +39,12 @@ class Player:
         if self.currentHealth > 100:
             self.currentHealth = 100
 
+        self.dispatch_event("on_hp_change", self)
+
     def reduceHealth(self, amount):
         self.currentHealth -= amount
+
+        self.dispatch_event("on_hp_change", self)
 
     def getHealth(self):
         assert self.currentHealth <= 100
