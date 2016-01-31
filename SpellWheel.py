@@ -2,11 +2,15 @@ import cocos
 from cocos.actions import *
 import pyglet
 
+import platform
+
 import math
 import random
 
 import Globals
 import util
+
+from Actions import *
 
 
 class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher): 
@@ -74,11 +78,13 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
                 self.tryNormalCast()
 
         if axis == "z":
+            print(value)
             if value > Globals.TRIGGER_THRESHOLD:
                 self.trySelfCast()
 
-            if value < -Globals.TRIGGER_THRESHOLD:
-                self.tryNormalCast()
+            if platform.system() == "Windows":
+                if value < -Globals.TRIGGER_THRESHOLD:
+                    self.tryNormalCast()
 
         #Calculate stick angle
         if axis == "rx" or axis == "ry":
@@ -112,7 +118,7 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
         #Reset color on all the backgrounds
         for i in range(len(self.backgrounds)):
             bg = self.backgrounds[i]
-            bg.do(util.UpdateAction())
+            bg.do(UpdateAction())
             
             if i in self.selectedIngredients:
                 bg.color = 255,0,0
@@ -169,7 +175,7 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
     
     def on_damage_taken(self):
         SHAKE_AMOUNT = 20
-        actionChain = util.UpdateAction()
+        actionChain = UpdateAction()
 
         for i in range(0,20):
             newX = self.position[0] + (random.random() - 0.5) * SHAKE_AMOUNT
@@ -185,8 +191,8 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
     def display_health_loss(self, amnt):
         col = (255, 0, 0, 0) if amnt < 0 else (0, 255, 0, 0)
         sign = "+" if amnt > 0 else "-"
-        lblDamageTaken = cocos.text.Label(sign + str(abs(amnt)), font_size=14, font_name=Globals.FONT_NAME, color=col)
-        lblDamageTaken.position = Globals.HEALTH_LOSS_X_OFFSET,Globals.HEALTH_LOSS_Y_OFFSET
-        lblDamageTaken.do(FadeIn(0.2) + Delay(0.8) + FadeOut(0.4) + CallFunc(lambda : self.remove(lblDamageTaken)))
+        lblDamageTaken = cocos.text.Label(sign + str(abs(amnt)), anchor_x="center", font_size=16, font_name=Globals.FONT_NAME, color=col)
+        lblDamageTaken.position = Globals.HEALTH_LOSS_OFFSET
+        lblDamageTaken.do(MoveBy((0,-50), 2) | FadeIn(0.2) + Delay(0.8) + FadeOut(0.4) + Remove())
 
         self.add(lblDamageTaken)
