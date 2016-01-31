@@ -9,6 +9,11 @@ from SpellEffects import effectDispatchCenter
 
 from pyglet import font
 
+class Remove(InstantAction):
+
+    def start(self):
+        self.target.kill()
+
 class ColorLerp(IntervalAction):
 
     def init(self, from_color, to_color, duration):
@@ -113,7 +118,7 @@ class EffectLayer(cocos.layer.Layer):
         label = Label(spell, anchor_x="center", font_size=16, font_name=Globals.FONT_NAME)
         label.position = user.spellWheel.position[0]+Globals.LABEL_OFFSET[0],user.spellWheel.position[1]+Globals.LABEL_OFFSET[1]
         label.opacity = 0
-        label.do(FadeIn(0.2) + Delay(0.8) + FadeOut(0.4))
+        label.do(FadeIn(0.2) + Delay(0.8) + FadeOut(0.4) + Remove())
         self.add(label)
 
     def on_spell(self, user, target, spell):
