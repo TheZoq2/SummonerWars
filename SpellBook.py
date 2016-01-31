@@ -29,7 +29,7 @@ state_spells = {
     (): SpellEffects.NoEffect,
     (Ingredients.fire, Ingredients.blood): SpellEffects.BloodArrow,
     (Ingredients.water, Ingredients.water, Ingredients.water): SpellEffects.Strike,
-    (Ingredients.air, Ingredients.light): SpellEffects.OpenMind,
+    (Ingredients.water, Ingredients.light): SpellEffects.OpenMind,
     (Ingredients.air, Ingredients.fire, Ingredients.fire): SpellEffects.Oops,
     (Ingredients.air, Ingredients.cosmic): SpellEffects.Anguish,
     (Ingredients.air, Ingredients.blood): SpellEffects.Turmoil,
@@ -39,6 +39,11 @@ state_spells = {
     (Ingredients.air, Ingredients.water, Ingredients.earth, Ingredients.fire, Ingredients.light,
                                     Ingredients.dark, Ingredients.cosmic, Ingredients.blood): SpellEffects.OmniPower,
     (Ingredients.light, Ingredients.dark): SpellEffects.Equilibrium,
+    (Ingredients.earth, Ingredients.fire): SpellEffects.Eruption,
+    (Ingredients.air, Ingredients.light): SpellEffects.Fade,
+    (Ingredients.dark, Ingredients.blood): SpellEffects.CorruptedBlood,
+
+
 }
 
 assert(list(map(lambda seq: (list(seq) == sorted(list(seq))), list(state_spells))))
