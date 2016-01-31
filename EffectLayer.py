@@ -68,7 +68,7 @@ class EffectLayer(cocos.layer.Layer):
         sprite = self.assets["Strike"]
         user_position = user.spellWheel.position[0] + Globals.USER_OFFSET[0], user.spellWheel.position[1] + Globals.USER_OFFSET[1]
         target_position = target.spellWheel.position[0] + Globals.TARGET_OFFSET[0], target.spellWheel.position[1] + Globals.TARGET_OFFSET[1]
-        sprite.do( Shoot(user_position, target_position, 1.0) | ColorLerp((255,255,255), (200,10,10), 1.0) | FadeIn(0.5) )
+        sprite.do( Shoot(user_position, target_position, 1.0) | ColorLerp((255,255,255), (200,10,10), 1.0) | FadeOut(1.0))
         self.add(sprite)
 
     def _NoSpell(self, user, target):
