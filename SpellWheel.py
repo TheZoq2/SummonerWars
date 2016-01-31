@@ -181,3 +181,12 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
 
         self.do(actionChain)
 
+
+    def display_health_loss(self, amnt):
+        col = (255, 0, 0, 0) if amnt < 0 else (0, 255, 0, 0)
+        sign = "+" if amnt > 0 else "-"
+        lblDamageTaken = cocos.text.Label(sign + str(abs(amnt)), font_size=14, font_name=Globals.FONT_NAME, color=col)
+        lblDamageTaken.position = Globals.HEALTH_LOSS_X_OFFSET,Globals.HEALTH_LOSS_Y_OFFSET
+        lblDamageTaken.do(FadeIn(0.2) + Delay(0.8) + FadeOut(0.4) + CallFunc(lambda : self.remove(lblDamageTaken)))
+
+        self.add(lblDamageTaken)
