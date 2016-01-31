@@ -4,7 +4,9 @@ from SpellWheel import *
 import SpellBook 
 import Globals
 
-class Player:
+import pyglet
+
+class Player(pyglet.event.EventDispatcher):
     def __init__(self, spellWheel):
         self.currentIngredients = []
 
@@ -25,6 +27,8 @@ class Player:
 
         self.choseNewIngredients()
 
+        Player.register_event_type("on_hp_change")
+
     #Look away!
     def setOther(other, self):
         other.other = self
@@ -35,8 +39,12 @@ class Player:
         if self.currentHealth > 100:
             self.currentHealth = 100
 
+        self.dispatch_event("on_hp_change")
+
     def reduceHealth(self, amount):
         self.currentHealth -= amount
+
+        self.dispatch_event("on_hp_change")
 
     def getHealth(self):
         assert self.currentHealth <= 100
