@@ -34,7 +34,7 @@ class EffectLayer(cocos.layer.Layer):
         font.add_file(Globals.FONT_FILE)
         self.assets = {
             "Default": Sprite(Globals.SPELL_DEFAULT),
-            "NoSpell": Sprite(Globals.SPELL_DEFAULT),
+            "NoSpell": Sprite(Globals.SPELL_NOSPELL),
             "Heal": Sprite(Globals.SPELL_DEFAULT),
             "GreaterHeal": Sprite(Globals.SPELL_DEFAULT),
             "Strike": Sprite(Globals.SPELL_DEFAULT),
@@ -51,7 +51,7 @@ class EffectLayer(cocos.layer.Layer):
         }
         self.effects = {
             "Default": self._Default,
-            "NoSpell": self._Default,
+            "NoSpell": self._NoSpell,
             "Heal": self._Default,
             "GreaterHeal": self._Default,
             "Strike": self._Default,
@@ -70,11 +70,15 @@ class EffectLayer(cocos.layer.Layer):
         sprite = self.assets["Default"]
         user_position = user.spellWheel.position[0] + Globals.USER_OFFSET[0], user.spellWheel.position[1] + Globals.USER_OFFSET[1]
         target_position = target.spellWheel.position[0] + Globals.TARGET_OFFSET[0], target.spellWheel.position[1] + Globals.TARGET_OFFSET[1]
-        sprite.do( Shoot(user_position, target_position, 1.0) | ColorLerp((255,255,255), (200,10,10), 1.0) | FadeOut(1.0))
+        sprite.do(Shoot(user_position, target_position, 1.0) | ColorLerp((255,255,255), (200,10,10), 1.0) | FadeOut(1.0))
         self.add(sprite)
 
     def _NoSpell(self, user, target):
-        pass
+        sprite = self.assets["NoSpell"]
+        user_position = user.spellWheel.position[0] + Globals.USER_OFFSET[0], user.spellWheel.position[1] + Globals.USER_OFFSET[1] - 56
+        target_position = user.spellWheel.position[0] + Globals.USER_OFFSET[0], user.spellWheel.position[1] + Globals.USER_OFFSET[1] + 64
+        sprite.do(Shoot(user_position, target_position, 1.0) | ColorLerp((127,127,127), (255,255,255), 1.0) | FadeOut(1.0))
+        self.add(sprite)
 
     def _Oops(self, user, target):
         pass
