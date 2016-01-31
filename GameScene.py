@@ -71,7 +71,7 @@ class GameScene(cocos.scene.Scene):
         except IndexError:
             return None,joystickIndex
         
-        while str(joystick.device).find("T1eensy") != -1:
+        while str(joystick.device).find("Teensy") != -1:
             joystickIndex += 1
             joystick = joyList[joystickIndex]
 

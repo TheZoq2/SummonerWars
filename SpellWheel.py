@@ -2,6 +2,8 @@ import cocos
 from cocos.actions import *
 import pyglet
 
+import platform
+
 import math
 import random
 
@@ -74,10 +76,11 @@ class SpellWheel(cocos.layer.Layer, pyglet.event.EventDispatcher):
                 self.tryNormalCast()
 
         if axis == "z":
+            print(value)
             if value > Globals.TRIGGER_THRESHOLD:
                 self.trySelfCast()
 
-            if value < -Globals.TRIGGER_THRESHOLD:
+            if value < -Globals.TRIGGER_THRESHOLD and platform.system() == "Windows":
                 self.tryNormalCast()
 
         #Calculate stick angle
