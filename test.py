@@ -35,7 +35,7 @@ joystick2,joyIndex = selectJoystick(joyList, joyIndex + 1)
 if joystick2:
     print("Player2: " + str(joystick2.device))
 
-SpellWheel.generateSymbols()
+util.generateSymbols()
 
 sw1 = SpellWheel(joystick, Globals.POS_WHEEL_1)
 sw2 = SpellWheel(joystick2, Globals.POS_WHEEL_2)
