@@ -1,3 +1,5 @@
+import Globals
+
 import cocos
 from cocos.actions import *
 from cocos.actions.interval_actions import *
@@ -15,7 +17,7 @@ class EffectLayer(cocos.layer.Layer):
     def __init__(self):
         super(EffectLayer, self).__init__()
         effectDispatchCenter.push_handlers(self)
-        font.add_file("Assets/PressStart2P.ttf")
+        font.add_file(Globals.FONT_FILE)
 
     def on_spell(self, user, target, type):
         label = Label(type, anchor_x="center", font_size=16, font_name="Press Start 2P")
