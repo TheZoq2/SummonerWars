@@ -21,5 +21,5 @@ class EffectLayer(cocos.layer.Layer):
         label = Label(type, anchor_x="center", font_size=16, font_name="Press Start 2P")
         label.position = user.position
         label.opacity = 0
-        label.do(FadeIn(0.2) + Delay(0.5) + FadeOut(0.4))
+        label.do(FadeIn(0.2) + Delay(0.8) + FadeOut(0.4))
         self.add(label)
